@@ -1,6 +1,6 @@
-import Card from './Card';
+import Card from '@/components/Card.tsx';
 
-export default function Main({offersCount}: { offersCount: number }) {
+export default function MainPage({offersCount}: { offersCount: number }) {
   return (
     <div className="page page--gray page--main">
       <header className="header">

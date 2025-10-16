@@ -1,10 +1,10 @@
 import React from 'react';
-import Main from './Main';
+import MainPage from '@/pages/main-page/main-page.tsx';
 
 export default function App({ offersCount }: { offersCount: number }) {
   return (
     <React.StrictMode>
-      <Main offersCount={offersCount} />
+      <MainPage offersCount={offersCount} />
     </React.StrictMode>
   );
 }
