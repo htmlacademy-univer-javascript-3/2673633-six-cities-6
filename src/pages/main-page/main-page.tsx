@@ -1,4 +1,4 @@
-import Card from '@/components/Card.tsx';
+import Card from '@/components/card.tsx';
 
 export default function MainPage({offersCount}: { offersCount: number }) {
   return (
