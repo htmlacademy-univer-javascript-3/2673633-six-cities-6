@@ -1,6 +1,6 @@
 import Card from '@/components/card.tsx';
 
-export default function MainPage({offersCount}: { offersCount: number }) {
+export default function MainPage({ offersCount }: { offersCount: number }) {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -8,7 +8,7 @@ export default function MainPage({offersCount}: { offersCount: number }) {
           <div className="header__wrapper">
             <div className="header__left">
               <a className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
+                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </a>
             </div>
             <nav className="header__nav">
@@ -91,11 +91,11 @@ export default function MainPage({offersCount}: { offersCount: number }) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
-                <Card/>
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+                <Card />
               </div>
             </section>
             <div className="cities__right-section">
