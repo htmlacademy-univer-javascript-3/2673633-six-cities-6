@@ -6,7 +6,7 @@ export default function OfferPage() {
   // const { id } = useParams<{ id: string }>();
   return (
     <div className="page">
-      <Header />
+      <Header shouldShowNav />
 
       <main className="page__main page__main--offer">
         <section className="offer">
