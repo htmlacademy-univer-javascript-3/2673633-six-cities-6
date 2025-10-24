@@ -4,7 +4,7 @@ type GeoLocation = {
   zoom: number
 }
 
-type Offer = {
+export type Offer = {
   id: string
   title: string
   type: string
@@ -22,7 +22,7 @@ type City = {
   location: GeoLocation
 }
 
-const offers: Offer[] = [
+export const offers: Offer[] = [
   {
     id: '0b461aa1-f701-4b65-abe0-af5c67280053',
     title: 'Amazing and Extremely Central Flat',

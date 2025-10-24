@@ -1,7 +1,10 @@
 import Card from '@/components/card.tsx'
 import Header from '@/widgets/header/header.tsx'
+import { Offer } from '@/mocks/offers.tsx'
 
-export default function MainPage({ offersCount }: { offersCount: number }) {
+type MainPageProps = { offers: Offer[] };
+
+export default function MainPage({ offers }: MainPageProps) {
   return (
     <div className="page page--gray page--main">
       <Header shouldShowNav />
@@ -48,7 +51,7 @@ export default function MainPage({ offersCount }: { offersCount: number }) {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
