@@ -1,26 +1,4 @@
-type GeoLocation = {
-  latitude: number
-  longitude: number
-  zoom: number
-}
-
-export type Offer = {
-  id: string
-  title: string
-  type: string
-  price: number
-  city: City
-  location: GeoLocation
-  isFavorite: boolean
-  isPremium: boolean
-  rating: number
-  previewImage: string
-}
-
-type City = {
-  name: string
-  location: GeoLocation
-}
+import { Offer } from '@/types/offer.ts'
 
 export const offers: Offer[] = [
   {
@@ -28,7 +6,7 @@ export const offers: Offer[] = [
     title: 'Amazing and Extremely Central Flat',
     type: 'apartment',
     price: 212,
-    previewImage: 'https://14.design.htmlacademy.pro/static/hotel/4.jpg',
+    previewImage: 'img/apartment-01.jpg',
     city: {
       name: 'Paris',
       location: {
@@ -55,7 +33,7 @@ export const offers: Offer[] = [
     price:
       366,
     previewImage:
-      'https://14.design.htmlacademy.pro/static/hotel/5.jpg',
+      'img/apartment-02.jpg',
     city:
       {
         name: 'Paris',
@@ -94,7 +72,7 @@ export const offers: Offer[] = [
     price:
       400,
     previewImage:
-      'https://14.design.htmlacademy.pro/static/hotel/5.jpg',
+      'img/apartment-03.jpg',
     city:
       {
         name: 'Paris',
@@ -133,7 +111,7 @@ export const offers: Offer[] = [
     price:
       212,
     previewImage:
-      'https://14.design.htmlacademy.pro/static/hotel/18.jpg',
+      'img/room.jpg',
     city:
       {
         name: 'Paris',

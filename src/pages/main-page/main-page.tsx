@@ -1,6 +1,6 @@
 import Card from '@/components/card.tsx'
 import Header from '@/widgets/header/header.tsx'
-import { Offer } from '@/mocks/offers.tsx'
+import { Offer } from '@/types/offer.ts'
 
 type MainPageProps = { offers: Offer[] };
 
@@ -68,11 +68,9 @@ export default function MainPage({ offers }: MainPageProps) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                {offers.map((offer: Offer) => (
+                  <Card key={offer.id} offer={offer} />
+                ))}
               </div>
             </section>
             <div className="cities__right-section">
