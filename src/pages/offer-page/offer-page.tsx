@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom'
 import { offers } from '@/mocks/offers.tsx'
 import Header from '@/widgets/header/header.tsx'
 import ReviewForm from '@/components/review-form/review-form.tsx'
@@ -173,9 +173,9 @@ export default function OfferPage() {
             <div className="near-places__list places__list">
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="#">
+                  <Link to="#">
                     <img className="place-card__image" src="img/room.jpg" width="260" height="200" alt="Place image" />
-                  </a>
+                  </Link>
                 </div>
                 <div className="place-card__info">
                   <div className="place-card__price-wrapper">
@@ -198,7 +198,7 @@ export default function OfferPage() {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">Wood and stone place</a>
+                    <Link to="#">Wood and stone place</Link>
                   </h2>
                   <p className="place-card__type">Room</p>
                 </div>
@@ -206,10 +206,10 @@ export default function OfferPage() {
 
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="#">
+                  <Link to="#">
                     <img className="place-card__image" src="img/apartment-02.jpg" width="260" height="200"
                          alt="Place image" />
-                  </a>
+                  </Link>
                 </div>
                 <div className="place-card__info">
                   <div className="place-card__price-wrapper">
@@ -231,7 +231,7 @@ export default function OfferPage() {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">Canal View Prinsengracht</a>
+                    <Link to="#">Canal View Prinsengracht</Link>
                   </h2>
                   <p className="place-card__type">Apartment</p>
                 </div>
@@ -242,10 +242,10 @@ export default function OfferPage() {
                   <span>Premium</span>
                 </div>
                 <div className="near-places__image-wrapper place-card__image-wrapper">
-                  <a href="#">
+                  <Link to="#">
                     <img className="place-card__image" src="img/apartment-03.jpg" width="260" height="200"
                          alt="Place image" />
-                  </a>
+                  </Link>
                 </div>
                 <div className="place-card__info">
                   <div className="place-card__price-wrapper">
@@ -267,7 +267,7 @@ export default function OfferPage() {
                     </div>
                   </div>
                   <h2 className="place-card__name">
-                    <a href="#">Nice, cozy, warm big bed apartment</a>
+                    <Link to="#">Nice, cozy, warm big bed apartment</Link>
                   </h2>
                   <p className="place-card__type">Apartment</p>
                 </div>
