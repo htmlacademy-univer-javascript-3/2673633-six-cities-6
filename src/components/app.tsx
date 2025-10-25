@@ -11,7 +11,7 @@ import { Offer } from '@/types/offer.ts'
 type AppProps = { offers: Offer[] }
 
 export default function App({ offers }: AppProps) {
-  const isAuthorized = false
+  const isAuthorized = true
 
   return (
     <BrowserRouter>
