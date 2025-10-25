@@ -5,7 +5,7 @@ import LoginPage from '@/pages/login-page/login-page.tsx'
 import OfferPage from '@/pages/offer-page/offer-page.tsx'
 import NotFoundPage from '@/pages/not-found-page/not-found-page.tsx'
 import FavoritesPage from '@/pages/favorites-page/favorites-page.tsx'
-import PrivateRoute from '@/components/private-route.tsx'
+import PrivateRoute from '@/components/private-route/private-route.tsx'
 import { Offer } from '@/types/offer.ts'
 
 type AppProps = { offers: Offer[] }
@@ -22,7 +22,7 @@ export default function App({ offers }: AppProps) {
           path="/favorites"
           element={
             <PrivateRoute isAuthorized={isAuthorized}>
-              <FavoritesPage />
+              <FavoritesPage offers={offers}/>
             </PrivateRoute>
           }
         />

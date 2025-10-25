@@ -1,14 +1,13 @@
 import { Offer } from '@/types/offer.ts'
-import Card from '@/components/card.tsx'
+import Card from '@/components/card/card.tsx'
 import { useState } from 'react'
-import FilterForm from '@/components/filter-form.tsx'
+import FilterForm from '@/components/filter-form/filter-form.tsx'
 
-type OffersListProps = {
+type CitiesOffersListProps = {
   offers: Offer[];
 }
 
-export default function OffersList({ offers }: OffersListProps) {
-
+export default function CitiesOffersList({ offers }: CitiesOffersListProps) {
   const [, setActiveCardId] = useState<string | null>(null)
 
   return (
@@ -23,6 +22,7 @@ export default function OffersList({ offers }: OffersListProps) {
               <Card
                 key={offer.id}
                 offer={offer}
+                type="cities"
                 onMouseEnter={() => setActiveCardId(offer.id)}
                 onMouseLeave={() => setActiveCardId(null)}
               />

@@ -1,4 +1,4 @@
-import OffersList from '@/components/offers-list.tsx'
+import CitiesOffersList from '@/components/cities-offers-list/cities-offers-list.tsx'
 import Header from '@/widgets/header/header.tsx'
 import { Offer } from '@/types/offer.ts'
 
@@ -47,7 +47,7 @@ export default function MainPage({ offers }: MainPageProps) {
             </ul>
           </section>
         </div>
-        <OffersList offers={offers} />
+        <CitiesOffersList offers={offers} />
       </main>
     </div>
   )
