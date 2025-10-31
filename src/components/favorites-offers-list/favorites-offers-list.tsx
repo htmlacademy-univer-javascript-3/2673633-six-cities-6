@@ -22,7 +22,7 @@ export default function FavoritesOffersList({offers}: FavoritesOffersListProps) 
   return (
     <ul className="favorites__list">
       {Object.keys(groupedOffers).map(city => (
-        <li className="favorites__locations-items">
+        <li className="favorites__locations-items" key={city}>
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
               <Link className="locations__item-link" to="#">

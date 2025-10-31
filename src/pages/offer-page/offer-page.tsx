@@ -1,12 +1,10 @@
-import { Link, useParams } from 'react-router-dom'
-import { offers } from '@/mocks/offers.tsx'
+import { Link } from 'react-router-dom'
 import Header from '@/widgets/header/header.tsx'
 import ReviewForm from '@/components/review-form/review-form.tsx'
 
 export default function OfferPage() {
-  const { id } = useParams<{ id: string }>();
-  const offer = offers!.find(offer => offer.id === id)
-  console.log(offer)
+  //const { id } = useParams<{ id: string }>();
+
   return (
     <div className="page">
       <Header shouldShowNav />
