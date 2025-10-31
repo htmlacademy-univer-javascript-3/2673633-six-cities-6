@@ -8,12 +8,22 @@ export default function FilterForm({ isOpenned = false }: { isOpenned?: boolean 
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className={`places__options places__options--custom ${isOpenned && 'places__options--opened'}`}>
-        <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-        <li className="places__option" tabIndex={0}>Price: low to high</li>
-        <li className="places__option" tabIndex={0}>Price: high to low</li>
-        <li className="places__option" tabIndex={0}>Top rated first</li>
+      <ul
+        className={`places__options places__options--custom ${isOpenned && 'places__options--opened'}`}
+      >
+        <li className="places__option places__option--active" tabIndex={0}>
+          Popular
+        </li>
+        <li className="places__option" tabIndex={0}>
+          Price: low to high
+        </li>
+        <li className="places__option" tabIndex={0}>
+          Price: high to low
+        </li>
+        <li className="places__option" tabIndex={0}>
+          Top rated first
+        </li>
       </ul>
     </form>
-  )
+  );
 }

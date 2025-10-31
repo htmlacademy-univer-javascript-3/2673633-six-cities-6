@@ -1,36 +1,38 @@
-import React from 'react'
-import { Offer } from '@/types/offer.ts'
-import { Link } from 'react-router-dom'
+import { Offer } from '@/types/offer.ts';
+import { Link } from 'react-router-dom';
 
-type CardType = 'cities' | 'favorites'
+type CardType = 'cities' | 'favorites';
 
 type CardProps = {
-  offer: Offer
-  type: CardType
-} & React.HTMLAttributes<HTMLDivElement>
+  offer: Offer;
+  type: CardType;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+};
 
 const getDimensions = (type: CardType) => {
   switch (type) {
     case 'favorites':
-      return { width: 150, height: 110 }
+      return { width: 150, height: 110 };
     case 'cities':
-      return { width: 260, height: 200 }
+      return { width: 260, height: 200 };
   }
-}
+};
 
 export default function Card({ offer, type, onMouseEnter, onMouseLeave }: CardProps) {
-  const { width, height } = getDimensions(type)
+  const { width, height } = getDimensions(type);
 
   return (
     <article
       className={`${type}__card place-card`}
       onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}>
-      {offer.isPremium &&
+      onMouseLeave={onMouseLeave}
+    >
+      {offer.isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
-      }
+      )}
       <div className={`${type}__image-wrapper place-card__image-wrapper`}>
         <Link to={`/offer/${offer.id}`}>
           <img
@@ -38,7 +40,8 @@ export default function Card({ offer, type, onMouseEnter, onMouseLeave }: CardPr
             src={offer.previewImage}
             width={width}
             height={height}
-            alt="Place image" />
+            alt="Place image"
+          />
         </Link>
       </div>
       <div className={`${type}__card-info place-card__info`}>
@@ -49,11 +52,14 @@ export default function Card({ offer, type, onMouseEnter, onMouseLeave }: CardPr
           </div>
           <button
             className={`place-card__bookmark-button ${offer.isFavorite && 'place-card__bookmark-button--active'} button`}
-            type="button">
+            type="button"
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
-            <span className="visually-hidden">{offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
+            <span className="visually-hidden">
+              {offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}
+            </span>
           </button>
         </div>
         <div className="place-card__rating rating">
@@ -68,5 +74,5 @@ export default function Card({ offer, type, onMouseEnter, onMouseLeave }: CardPr
         <p className="place-card__type">{offer.type}</p>
       </div>
     </article>
-  )
+  );
 }

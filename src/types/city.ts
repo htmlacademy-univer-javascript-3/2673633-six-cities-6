@@ -1,6 +1,6 @@
-import { GeoLocation } from '@/types/geolocation.ts'
+import { GeoLocation } from '@/types/geolocation.ts';
 
 export type City = {
-  name: string
-  location: GeoLocation
-}
+  name: string;
+  location: GeoLocation;
+};

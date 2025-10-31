@@ -1,19 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-const REVIEW_MIN_LENGTH = 50
+const REVIEW_MIN_LENGTH = 50;
 
 export default function ReviewForm() {
   const [formState, setFormState] = useState({
     rating: '-1',
     review: '',
-  })
+  });
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    const { name, value } = event.target
-    setFormState((prev) => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = event.target;
+    setFormState((prev) => ({ ...prev, [name]: value }));
+  };
 
-  const isFormValid = formState.rating !== '-1' && formState.review.length >= REVIEW_MIN_LENGTH
+  const isFormValid = formState.rating !== '-1' && formState.review.length >= REVIEW_MIN_LENGTH;
 
   const ratings = [
     { value: '5', id: '5-stars', title: 'perfect' },
@@ -21,11 +21,13 @@ export default function ReviewForm() {
     { value: '3', id: '3-stars', title: 'not bad' },
     { value: '2', id: '2-stars', title: 'badly' },
     { value: '1', id: '1-star', title: 'terribly' },
-  ]
+  ];
 
   return (
     <form className="reviews__form form" action="#" method="post">
-      <label className="reviews__label form__label" htmlFor="review">Your review</label>
+      <label className="reviews__label form__label" htmlFor="review">
+        Your review
+      </label>
       <div className="reviews__rating-form form__rating">
         {ratings.map(({ value, id, title }) => (
           <React.Fragment key={id}>
@@ -54,17 +56,21 @@ export default function ReviewForm() {
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={onChangeHandler}
         value={formState.review}
-      ></textarea>
+      />
 
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and
           describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={!isFormValid}>
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={!isFormValid}
+        >
           Submit
         </button>
       </div>
     </form>
-  )
+  );
 }

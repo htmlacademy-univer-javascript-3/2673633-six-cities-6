@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 export default function HeaderNav() {
   return (
@@ -6,8 +6,7 @@ export default function HeaderNav() {
       <ul className="header__nav-list">
         <li className="header__nav-item user">
           <Link className="header__nav-link header__nav-link--profile" to="#">
-            <div className="header__avatar-wrapper user__avatar-wrapper">
-            </div>
+            <div className="header__avatar-wrapper user__avatar-wrapper"></div>
             <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
             <span className="header__favorite-count">3</span>
           </Link>
@@ -19,5 +18,5 @@ export default function HeaderNav() {
         </li>
       </ul>
     </nav>
-  )
+  );
 }

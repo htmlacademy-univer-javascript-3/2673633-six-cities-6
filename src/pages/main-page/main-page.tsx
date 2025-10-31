@@ -1,6 +1,6 @@
-import CitiesOffersList from '@/components/cities-offers-list/cities-offers-list.tsx'
-import Header from '@/widgets/header/header.tsx'
-import { Offer } from '@/types/offer.ts'
+import CitiesOffersList from '@/components/cities-offers-list/cities-offers-list.tsx';
+import Header from '@/widgets/header/header.tsx';
+import { Offer } from '@/types/offer.ts';
 
 type MainPageProps = { offers: Offer[] };
 
@@ -50,5 +50,5 @@ export default function MainPage({ offers }: MainPageProps) {
         <CitiesOffersList offers={offers} />
       </main>
     </div>
-  )
+  );
 }
