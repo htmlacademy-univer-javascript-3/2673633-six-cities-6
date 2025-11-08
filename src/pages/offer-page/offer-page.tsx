@@ -1,25 +1,16 @@
 import Header from '@/widgets/header/header.tsx';
 import ReviewForm from '@/components/review-form/review-form.tsx';
 import ReviewsList from '@/components/reviews-list/reviews-list.tsx';
+import NearbyOffersList from '@/components/nearby-offers-list/nearby-offers-list.tsx';
+import MapWrapper from '@/components/map-wrapper/map-wrapper.tsx';
 import { reviews } from '@/mocks/reviews.ts';
 import { offer } from '@/mocks/offer.ts';
 import { offers } from '@/mocks/offers-nearby.ts';
-import Map from '@/components/map/map.tsx';
-import { Offer } from '@/types/offer.ts';
-import { Point } from '@/types/point.ts';
-import NearbyOffersList from '@/components/nearby-offers-list/nearby-offers-list.tsx';
 
 export default function OfferPage() {
-  const points: Point[] = offers.map((offer: Offer) => ({
-    title: offer.title,
-    lat: offer.location.latitude,
-    lng: offer.location.longitude,
-  }));
-
   return (
     <div className="page">
       <Header shouldShowNav />
-
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
@@ -97,7 +88,7 @@ export default function OfferPage() {
               </section>
             </div>
           </div>
-          <Map type="offer" city={offer.city} points={points} />
+          <MapWrapper type={'offer'} city={offer.city} offers={offers} />
         </section>
         <NearbyOffersList offers={offers} />
       </main>
