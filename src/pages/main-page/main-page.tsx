@@ -1,6 +1,7 @@
 import CitiesOffersList from '@/components/cities-offers-list/cities-offers-list.tsx';
 import Header from '@/widgets/header/header.tsx';
 import { Offer } from '@/types/offer.ts';
+import { city } from '@/mocks/city.ts';
 
 type MainPageProps = { offers: Offer[] };
 
@@ -15,7 +16,7 @@ export default function MainPage({ offers }: MainPageProps) {
           <section className="locations container">
             <ul className="locations__list tabs__list">
               <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
+                <a className="locations__item-link tabs__item tabs__item--active">
                   <span>Paris</span>
                 </a>
               </li>
@@ -30,7 +31,7 @@ export default function MainPage({ offers }: MainPageProps) {
                 </a>
               </li>
               <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
+                <a className="locations__item-link tabs__item" href="#">
                   <span>Amsterdam</span>
                 </a>
               </li>
@@ -47,7 +48,7 @@ export default function MainPage({ offers }: MainPageProps) {
             </ul>
           </section>
         </div>
-        <CitiesOffersList offers={offers} />
+        <CitiesOffersList city={city} offers={offers} />
       </main>
     </div>
   );
