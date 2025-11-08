@@ -1,6 +1,5 @@
 import { Review } from '@/types/review.ts';
 
-
 function formatDate(isoDate: string) {
   const date = new Date(isoDate);
   return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
