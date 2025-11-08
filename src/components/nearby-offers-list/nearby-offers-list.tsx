@@ -1,7 +1,11 @@
 import { Offer } from '@/types/offer.ts';
 import Card from '@/components/card/card.tsx';
 
-export default function NearbyOffersList({ offers }: { offers: Offer[] }) {
+type NearbyOffersListProps = {
+  offers: Offer[];
+}
+
+export default function NearbyOffersList({ offers }: NearbyOffersListProps) {
   return (
     <div className="container">
       <section className="near-places places">
