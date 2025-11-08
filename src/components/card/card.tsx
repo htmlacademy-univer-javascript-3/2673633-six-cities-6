@@ -1,7 +1,7 @@
 import { Offer } from '@/types/offer.ts';
 import { Link } from 'react-router-dom';
 
-type CardType = 'cities' | 'favorites';
+type CardType = 'cities' | 'favorites' | 'near-places';
 
 type CardProps = {
   offer: Offer;
@@ -15,6 +15,8 @@ const getDimensions = (type: CardType) => {
     case 'favorites':
       return { width: 150, height: 110 };
     case 'cities':
+      return { width: 260, height: 200 };
+    case 'near-places':
       return { width: 260, height: 200 };
   }
 };

@@ -7,6 +7,7 @@ import useMap from '@/hooks/use-map.ts';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
+  type: 'offer' | 'cities';
   city: City;
   points: Point[];
   selectedPoint: Point | undefined;
@@ -24,7 +25,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-export default function Map({ city, points, selectedPoint }: MapProps) {
+export default function Map({ type, city, points, selectedPoint }: MapProps) {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
@@ -40,7 +41,7 @@ export default function Map({ city, points, selectedPoint }: MapProps) {
 
         marker
           .setIcon(
-            selectedPoint !== undefined && point.title === selectedPoint.title
+            selectedPoint !== undefined && point.id === selectedPoint.id
               ? currentCustomIcon
               : defaultCustomIcon,
           )
@@ -53,9 +54,5 @@ export default function Map({ city, points, selectedPoint }: MapProps) {
     }
   }, [map, points, selectedPoint]);
 
-  return (
-    <div className="cities__right-section">
-      <section className="cities__map map" ref={mapRef}></section>
-    </div>
-  );
+  return <section className={`${type}__map map`} ref={mapRef}></section>;
 }
