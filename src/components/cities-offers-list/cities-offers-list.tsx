@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Card from '@/components/card/card.tsx';
 import FilterForm from '@/components/filter-form/filter-form.tsx';
 import MapWrapper from '@/components/map-wrapper/map-wrapper.tsx';
+import { useAppSelector } from '@/hooks/use-app-selector.ts';
+import { sort } from '@/utils/sorting-variables.ts';
 
 type CitiesOffersListProps = {
   city: City;
@@ -13,6 +15,8 @@ type CitiesOffersListProps = {
 export default function CitiesOffersList({ city, offers }: CitiesOffersListProps) {
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
   const selectedOffer = offers.find((item) => item.id === activeCardId);
+  const currentSorting = useAppSelector((state) => state.sorting);
+  const sortedOffers = sort(offers).by(currentSorting);
 
   return (
     <div className="cities">
@@ -22,7 +26,7 @@ export default function CitiesOffersList({ city, offers }: CitiesOffersListProps
           <b className="places__found">{offers.length} places to stay in {city.name}</b>
           <FilterForm />
           <div className="cities__places-list places__list tabs__content">
-            {offers.map((offer: Offer) => (
+            {sortedOffers.map((offer: Offer) => (
               <Card
                 key={offer.id}
                 offer={offer}
