@@ -25,5 +25,5 @@ export default function MapWrapper({ type, city, offers, selectedOffer }: MapWra
     }
     : undefined;
 
-  return <Map type={type} city={city} points={points} selectedPoint={selectedPoint} />;
+  return <Map type={type} city={city} points={points} selectedPoint={selectedPoint} key={city.name} />;
 }
