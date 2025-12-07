@@ -4,10 +4,32 @@ import ReviewsList from '@/components/reviews-list/reviews-list.tsx';
 import NearbyOffersList from '@/components/nearby-offers-list/nearby-offers-list.tsx';
 import MapWrapper from '@/components/map-wrapper/map-wrapper.tsx';
 import { reviews } from '@/mocks/reviews.ts';
-import { offer } from '@/mocks/offer.ts';
 import { offers } from '@/mocks/offers-nearby.ts';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
+import { fetchOffer } from '@/store/api-actions.ts';
+import { loadCurrentOffer } from '@/store/actions.ts';
+import { useAppSelector } from '@/hooks/use-app-selector.ts';
 
 export default function OfferPage() {
+  const { id } = useParams();
+  const dispatch = useAppDispatch();
+  const offer = useAppSelector((state) => state.currentOffer);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOffer(id));
+    }
+    return () => {
+      dispatch(loadCurrentOffer(null));
+    };
+  }, [dispatch, id]);
+
+  if (!offer) {
+    return <h1>sudbusbndc</h1>;
+  }
+
   return (
     <div className="page">
       <Header shouldShowNav />
