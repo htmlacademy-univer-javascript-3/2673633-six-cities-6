@@ -2,7 +2,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '@/types/state.ts';
 import { Offer } from '@/types/offer.ts';
-import { loadCurrentOffer, loadNearOffers, loadOffers, loadReviews } from '@/store/actions.ts';
+import {
+  changeCurrentOfferLoadingStatus, changeNearOfferLoadingStatus,
+  changeOffersLoadingStatus, changeReviewsLoadingStatus,
+  loadCurrentOffer,
+  loadNearOffers,
+  loadOffers,
+  loadReviews,
+} from '@/store/actions.ts';
 import { ExpandedOffer } from '@/types/expanded-offer.ts';
 import { Review } from '@/types/review.ts';
 
@@ -13,8 +20,13 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
 }>(
   'fetchOffers',
   async (_arg, { dispatch, extra: api }) => {
-    const { data } = await api.get<Offer[]>('/offers');
-    dispatch(loadOffers(data));
+    try {
+      dispatch(changeOffersLoadingStatus(true));
+      const { data } = await api.get<Offer[]>('/offers');
+      dispatch(loadOffers(data));
+    } catch (error) { /* empty */ } finally {
+      dispatch(changeOffersLoadingStatus(false));
+    }
   },
 );
 
@@ -25,8 +37,13 @@ export const fetchOffer = createAsyncThunk<void, string, {
 }>(
   'fetchOffer',
   async (id, { dispatch, extra: api }) => {
-    const { data } = await api.get<ExpandedOffer>(`/offers/${id}`);
-    dispatch(loadCurrentOffer(data));
+    try {
+      dispatch(changeCurrentOfferLoadingStatus(true));
+      const { data } = await api.get<ExpandedOffer>(`/offers/${id}`);
+      dispatch(loadCurrentOffer(data));
+    } catch (error) { /* empty */ } finally {
+      dispatch(changeCurrentOfferLoadingStatus(false));
+    }
   },
 );
 
@@ -37,8 +54,13 @@ export const fetchReviews = createAsyncThunk<void, string, {
 }>(
   'fetchReviews',
   async (id, { dispatch, extra: api }) => {
-    const { data } = await api.get<Review[]>(`/comments/${id}`);
-    dispatch(loadReviews(data));
+    try {
+      dispatch(changeReviewsLoadingStatus(true));
+      const { data } = await api.get<Review[]>(`/comments/${id}`);
+      dispatch(loadReviews(data));
+    } catch (error) { /* empty */ } finally {
+      dispatch(changeReviewsLoadingStatus(false));
+    }
   },
 );
 
@@ -49,7 +71,12 @@ export const fetchNearOffers = createAsyncThunk<void, string, {
 }>(
   'fetchNearOffers',
   async (id, { dispatch, extra: api }) => {
-    const { data } = await api.get<Offer[]>(`/offers/${id}/nearby`);
-    dispatch(loadNearOffers(data));
+    try {
+      dispatch(changeNearOfferLoadingStatus(true));
+      const { data } = await api.get<Offer[]>(`/offers/${id}/nearby`);
+      dispatch(loadNearOffers(data));
+    } catch (error) { /* empty */ } finally {
+      dispatch(changeNearOfferLoadingStatus(false));
+    }
   },
 );

@@ -1,6 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
   changeCity,
+  changeCurrentOfferLoadingStatus,
+  changeNearOfferLoadingStatus,
+  changeOffersLoadingStatus,
+  changeReviewsLoadingStatus,
   changeSorting,
   loadCurrentOffer,
   loadNearOffers,
@@ -16,10 +20,14 @@ import { Review } from '@/types/review.ts';
 type InitialState = {
   city: City;
   offers: Offer[];
+  isOffersLoading: boolean;
   sorting: SortingOptions;
   currentOffer: ExpandedOffer | null;
+  isCurrentOffersLoading: boolean;
   reviews: Review[];
+  isReviewsLoading: boolean;
   nearOffers: Offer[];
+  isNearOffersLoading: boolean;
 }
 
 const initialState: InitialState = {
@@ -32,10 +40,14 @@ const initialState: InitialState = {
     },
   },
   offers: [],
+  isOffersLoading: false,
   sorting: SortingOptions.Popular,
   currentOffer: null,
+  isCurrentOffersLoading: false,
   reviews: [],
+  isReviewsLoading: false,
   nearOffers: [],
+  isNearOffersLoading: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -57,6 +69,18 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadNearOffers, (state, action) => {
       state.nearOffers = action.payload;
+    })
+    .addCase(changeOffersLoadingStatus, (state, action) => {
+      state.isOffersLoading = action.payload;
+    })
+    .addCase(changeCurrentOfferLoadingStatus, (state, action) => {
+      state.isCurrentOffersLoading = action.payload;
+    })
+    .addCase(changeReviewsLoadingStatus, (state, action) => {
+      state.isReviewsLoading = action.payload;
+    })
+    .addCase(changeNearOfferLoadingStatus, (state, action) => {
+      state.isNearOffersLoading = action.payload;
     });
 });
 

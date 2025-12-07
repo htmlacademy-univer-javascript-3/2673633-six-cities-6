@@ -1,13 +1,17 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Offer } from '@/types/offer.ts';
 import { City } from '@/types/city.ts';
+import { Offer } from '@/types/offer.ts';
+import { Review } from '@/types/review.ts';
 import { SortingOptions } from '@/utils/sorting-variables.ts';
 import { ExpandedOffer } from '@/types/expanded-offer.ts';
-import { Review } from '@/types/review.ts';
 
 export const changeCity = createAction<City>('changeCity');
 export const loadOffers = createAction<Offer[]>('fillOffers');
+export const changeOffersLoadingStatus = createAction<boolean>('changeOffersLoadingStatus');
 export const changeSorting = createAction<SortingOptions>('changeSorting');
 export const loadCurrentOffer = createAction<ExpandedOffer | null>('loadCurrentOffer');
+export const changeCurrentOfferLoadingStatus = createAction<boolean>('changeCurrentOfferLoadingStatus');
 export const loadReviews = createAction<Review[]>('loadReviews');
+export const changeReviewsLoadingStatus = createAction<boolean>('changeReviewsLoadingStatus');
 export const loadNearOffers = createAction<Offer[]>('loadNearOffers');
+export const changeNearOfferLoadingStatus = createAction<boolean>('changeNearOfferLoadingStatus');
