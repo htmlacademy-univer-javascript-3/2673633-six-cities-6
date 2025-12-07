@@ -13,8 +13,7 @@ type CitiesOffersListProps = {
 };
 
 export default function CitiesOffersList({ city, offers }: CitiesOffersListProps) {
-  const [activeCardId, setActiveCardId] = useState<string | null>(null);
-  const selectedOffer = offers.find((item) => item.id === activeCardId);
+  const [activeCard, setActiveCard] = useState<Offer | null>(null);
   const currentSorting = useAppSelector((state) => state.sorting);
   const sortedOffers = sort(offers).by(currentSorting);
 
@@ -31,14 +30,14 @@ export default function CitiesOffersList({ city, offers }: CitiesOffersListProps
                 key={offer.id}
                 offer={offer}
                 type="cities"
-                onMouseEnter={() => setActiveCardId(offer.id)}
-                onMouseLeave={() => setActiveCardId(null)}
+                onMouseEnter={() => setActiveCard(offer)}
+                onMouseLeave={() => setActiveCard(null)}
               />
             ))}
           </div>
         </section>
         <div className="cities__right-section">
-          <MapWrapper type={'cities'} city={city} offers={offers} selectedOffer={selectedOffer} />
+          <MapWrapper type={'cities'} city={city} offers={offers} selectedOffer={activeCard} />
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ type MapWrapperProps = {
   type: 'offer' | 'cities';
   city: City;
   offers: Offer[];
-  selectedOffer?: Offer | undefined;
+  selectedOffer?: Offer | null;
 };
 
 export default function MapWrapper({ type, city, offers, selectedOffer }: MapWrapperProps) {

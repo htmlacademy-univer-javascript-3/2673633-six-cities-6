@@ -1,6 +1,6 @@
 import { useAppSelector } from '@/hooks/use-app-selector.ts';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
-import { changeSorting } from '@/store/action.ts';
+import { changeSorting } from '@/store/actions.ts';
 import { SortingOptions } from '@/utils/sorting-variables.ts';
 import { useState } from 'react';
 

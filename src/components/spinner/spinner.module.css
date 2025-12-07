@@ -1,0 +1,39 @@
+.loader {
+  margin: 35px 0;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-left-color: transparent;
+  border-radius: 50%;
+}
+
+.loader {
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-left-color: transparent;
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.loader {
+  border: 3px solid rgb(114, 114, 114);
+  border-left-color: transparent;
+  width: 1.3rem;
+  height: 1.3rem;
+  animation: spin89345 1s linear infinite;
+}
+
+.wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0;
+}
+
+@keyframes spin89345 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
