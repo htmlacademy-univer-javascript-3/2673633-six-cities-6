@@ -1,33 +1,41 @@
 import Header from '@/widgets/header/header.tsx';
 import ReviewForm from '@/components/review-form/review-form.tsx';
 import ReviewsList from '@/components/reviews-list/reviews-list.tsx';
-import NearbyOffersList from '@/components/nearby-offers-list/nearby-offers-list.tsx';
+import NearOffersList from '@/components/nearby-offers-list/near-offers-list.tsx';
 import MapWrapper from '@/components/map-wrapper/map-wrapper.tsx';
-import { reviews } from '@/mocks/reviews.ts';
-import { offers } from '@/mocks/offers-nearby.ts';
 import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
-import { fetchOffer } from '@/store/api-actions.ts';
-import { loadCurrentOffer } from '@/store/actions.ts';
+import { fetchNearOffers, fetchOffer, fetchReviews } from '@/store/api-actions.ts';
+import { loadCurrentOffer, loadNearOffers, loadReviews } from '@/store/actions.ts';
 import { useAppSelector } from '@/hooks/use-app-selector.ts';
+import { Offer } from '@/types/offer.ts';
 
 export default function OfferPage() {
   const { id } = useParams();
+
   const dispatch = useAppDispatch();
   const offer = useAppSelector((state) => state.currentOffer);
+  const reviews = useAppSelector((state) => state.reviews);
+  const nearOffers = useAppSelector((state) => state.nearOffers);
+
+  const [activeCard, setActiveCard] = useState<Offer | null>(null);
 
   useEffect(() => {
     if (id) {
       dispatch(fetchOffer(id));
+      dispatch(fetchReviews(id));
+      dispatch(fetchNearOffers(id));
     }
     return () => {
       dispatch(loadCurrentOffer(null));
+      dispatch(loadReviews([]));
+      dispatch(loadNearOffers([]));
     };
   }, [dispatch, id]);
 
   if (!offer) {
-    return <h1>sudbusbndc</h1>;
+    return <h1>Not found</h1>;
   }
 
   return (
@@ -113,9 +121,9 @@ export default function OfferPage() {
               </section>
             </div>
           </div>
-          <MapWrapper type={'offer'} city={offer.city} offers={offers} />
+          <MapWrapper type={'offer'} city={offer.city} offers={nearOffers} selectedOffer={activeCard}/>
         </section>
-        <NearbyOffersList offers={offers} />
+        <NearOffersList offers={nearOffers} setActiveCard={setActiveCard} />
       </main>
     </div>
   );
