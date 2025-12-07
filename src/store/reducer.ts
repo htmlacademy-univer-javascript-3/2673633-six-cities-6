@@ -1,7 +1,6 @@
-import { offers } from '@/mocks/offers.ts';
 import { city } from '@/mocks/city.ts';
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, changeSorting, fillOffers } from '@/store/action.ts';
+import { changeCity, changeSorting, fillOffers } from '@/store/actions.ts';
 import { City } from '@/types/city.ts';
 import { Offer } from '@/types/offer.ts';
 import { SortingOptions } from '@/utils/sorting-variables.ts';
@@ -14,7 +13,7 @@ type State = {
 
 const initialState: State = {
   city: city,
-  offers: offers,
+  offers: [],
   sorting: SortingOptions.Popular,
 };
 
