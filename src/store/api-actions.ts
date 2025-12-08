@@ -129,7 +129,7 @@ export const checkAuth = createAsyncThunk<void, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'login',
+  'checkAuth',
   async (_arg, { dispatch, extra: api }) => {
     try {
       const { data } = await api.get<User>('/login');
@@ -155,7 +155,7 @@ export const logout = createAsyncThunk<void, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'login',
+  'logout',
   async (_arg, { dispatch, extra: api }) => {
     try {
       await api.delete('/logout');
