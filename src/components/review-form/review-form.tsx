@@ -10,7 +10,7 @@ export default function ReviewForm() {
 
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector(state => state.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   const [formState, setFormState] = useState({
     rating: '-1',
@@ -23,15 +23,17 @@ export default function ReviewForm() {
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (id) {
-      try {
-        await dispatch(sendReview({ id, comment: formState.review, rating: formState.rating }))
-          .unwrap().then(() => setFormState({ rating: '-1', review: '' }));
-      } catch (error) {
-        /* empty */
-      }
+      (async () => {
+        try {
+          await dispatch(sendReview({ id, comment: formState.review, rating: formState.rating }))
+            .unwrap().then(() => setFormState({ rating: '-1', review: '' }));
+        } catch (error) {
+          /* empty */
+        }
+      })();
     }
   };
 
