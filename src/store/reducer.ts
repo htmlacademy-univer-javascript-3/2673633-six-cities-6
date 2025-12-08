@@ -1,5 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
+  changeAuthorizationStatus,
   changeCity,
   changeCurrentOfferLoadingStatus,
   changeNearOfferLoadingStatus,
@@ -10,6 +11,10 @@ import {
   loadNearOffers,
   loadOffers,
   loadReviews,
+  setAvatarUrl,
+  setEmail,
+  setIsPro,
+  setName,
 } from '@/store/actions.ts';
 import { City } from '@/types/city.ts';
 import { Offer } from '@/types/offer.ts';
@@ -28,6 +33,11 @@ type InitialState = {
   isReviewsLoading: boolean;
   nearOffers: Offer[];
   isNearOffersLoading: boolean;
+  authorizationStatus: 'auth' | 'no-auth' | 'unknown';
+  email: string | null;
+  avatarUrl: string | null;
+  name: string | null;
+  isPro: boolean;
 }
 
 const initialState: InitialState = {
@@ -48,6 +58,11 @@ const initialState: InitialState = {
   isReviewsLoading: false,
   nearOffers: [],
   isNearOffersLoading: false,
+  authorizationStatus: 'unknown',
+  email: null,
+  avatarUrl: null,
+  name: null,
+  isPro: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -81,6 +96,21 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(changeNearOfferLoadingStatus, (state, action) => {
       state.isNearOffersLoading = action.payload;
+    })
+    .addCase(changeAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setEmail, (state, action) => {
+      state.email = action.payload;
+    })
+    .addCase(setAvatarUrl, (state, action) => {
+      state.avatarUrl = action.payload;
+    })
+    .addCase(setName, (state, action) => {
+      state.name = action.payload;
+    })
+    .addCase(setIsPro, (state, action) => {
+      state.isPro = action.payload;
     });
 });
 

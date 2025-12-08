@@ -8,8 +8,6 @@ import FavoritesPage from '@/pages/favorites-page/favorites-page.tsx';
 import PrivateRoute from '@/components/private-route/private-route.tsx';
 
 export default function App() {
-  const isAuthorized = true;
-
   return (
     <BrowserRouter>
       <Routes>
@@ -18,7 +16,7 @@ export default function App() {
         <Route
           path="/favorites"
           element={
-            <PrivateRoute isAuthorized={isAuthorized}>
+            <PrivateRoute>
               <FavoritesPage offers={[]} />
             </PrivateRoute>
           }
