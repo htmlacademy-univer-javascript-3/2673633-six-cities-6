@@ -43,7 +43,7 @@ export default function OfferPage() {
   }
 
   if (!offer) {
-    return <>Not found</>;
+    return <h1>Not found</h1>;
   }
 
   return (
