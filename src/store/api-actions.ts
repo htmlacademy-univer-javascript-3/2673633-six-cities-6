@@ -170,3 +170,23 @@ export const logout = createAsyncThunk<void, undefined, {
     }
   },
 );
+
+export const sendReview = createAsyncThunk<void, {
+  id: string;
+  comment: string;
+  rating: string;
+}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'sendReview',
+  async ({ id, comment, rating }, { dispatch, extra: api }) => {
+    try {
+      await api.post<Review>(`/comments/${id}`, { comment, rating: Number(rating) });
+      dispatch(fetchReviews(id));
+    } catch (error) { /* empty */
+    } finally { /* empty */
+    }
+  },
+);

@@ -1,17 +1,35 @@
 import React, { useState } from 'react';
+import { sendReview } from '@/store/api-actions.ts';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
 
 const REVIEW_MIN_LENGTH = 50;
 
 export default function ReviewForm() {
+
+  const { id } = useParams();
+  const dispatch = useAppDispatch();
+
   const [formState, setFormState] = useState({
     rating: '-1',
     review: '',
   });
 
-  const onChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     event.preventDefault();
     const { name, value } = event.target;
     setFormState((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (id) {
+      dispatch(sendReview({ id, comment: formState.review, rating: formState.rating }));
+      setFormState({
+        rating: '-1',
+        review: '',
+      });
+    }
   };
 
   const isFormValid = formState.rating !== '-1' && formState.review.length >= REVIEW_MIN_LENGTH;
@@ -25,23 +43,23 @@ export default function ReviewForm() {
   ];
 
   return (
-    <form className="reviews__form form">
+    <form className="reviews__form form" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        {ratings.map(({ value, id, title }) => (
-          <React.Fragment key={id}>
+        {ratings.map(({ value, id: reviewId, title }) => (
+          <React.Fragment key={reviewId}>
             <input
               className="form__rating-input visually-hidden"
               name="rating"
               value={value}
-              id={id}
+              id={reviewId}
               type="radio"
               checked={formState.rating === value}
-              onChange={onChangeHandler}
+              onChange={handleChange}
             />
-            <label htmlFor={id} className="reviews__rating-label form__rating-label" title={title}>
+            <label htmlFor={reviewId} className="reviews__rating-label form__rating-label" title={title}>
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>
               </svg>
@@ -55,7 +73,7 @@ export default function ReviewForm() {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={onChangeHandler}
+        onChange={handleChange}
         value={formState.review}
       />
 

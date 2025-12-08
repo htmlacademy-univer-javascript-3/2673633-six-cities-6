@@ -8,6 +8,8 @@ export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const isPasswordValid = /(?=.*\p{L})(?=.*\d)/u.test(password);
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(login({ email, password }));
@@ -39,7 +41,7 @@ export default function LoginForm() {
           required
         />
       </div>
-      <button className="login__submit form__submit button" type="submit">
+      <button className="login__submit form__submit button" type="submit" disabled={!isPasswordValid}>
         Sign in
       </button>
     </form>
