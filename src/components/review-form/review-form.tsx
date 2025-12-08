@@ -9,6 +9,7 @@ export default function ReviewForm() {
   });
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    event.preventDefault();
     const { name, value } = event.target;
     setFormState((prev) => ({ ...prev, [name]: value }));
   };

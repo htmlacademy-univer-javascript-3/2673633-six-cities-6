@@ -3,15 +3,24 @@ import { AxiosInstance } from 'axios';
 import { AppDispatch, State } from '@/types/state.ts';
 import { Offer } from '@/types/offer.ts';
 import {
-  changeCurrentOfferLoadingStatus, changeNearOfferLoadingStatus,
-  changeOffersLoadingStatus, changeReviewsLoadingStatus,
+  changeAuthorizationStatus,
+  changeCurrentOfferLoadingStatus,
+  changeNearOfferLoadingStatus,
+  changeOffersLoadingStatus,
+  changeReviewsLoadingStatus,
   loadCurrentOffer,
   loadNearOffers,
   loadOffers,
   loadReviews,
+  setAvatarUrl,
+  setEmail,
+  setIsPro,
+  setName,
 } from '@/store/actions.ts';
 import { ExpandedOffer } from '@/types/expanded-offer.ts';
 import { Review } from '@/types/review.ts';
+import { User } from '@/types/user.ts';
+import { removeToken, setToken } from '@/services/token.ts';
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -24,7 +33,8 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
       dispatch(changeOffersLoadingStatus(true));
       const { data } = await api.get<Offer[]>('/offers');
       dispatch(loadOffers(data));
-    } catch (error) { /* empty */ } finally {
+    } catch (error) { /* empty */
+    } finally {
       dispatch(changeOffersLoadingStatus(false));
     }
   },
@@ -41,7 +51,8 @@ export const fetchOffer = createAsyncThunk<void, string, {
       dispatch(changeCurrentOfferLoadingStatus(true));
       const { data } = await api.get<ExpandedOffer>(`/offers/${id}`);
       dispatch(loadCurrentOffer(data));
-    } catch (error) { /* empty */ } finally {
+    } catch (error) { /* empty */
+    } finally {
       dispatch(changeCurrentOfferLoadingStatus(false));
     }
   },
@@ -58,7 +69,8 @@ export const fetchReviews = createAsyncThunk<void, string, {
       dispatch(changeReviewsLoadingStatus(true));
       const { data } = await api.get<Review[]>(`/comments/${id}`);
       dispatch(loadReviews(data));
-    } catch (error) { /* empty */ } finally {
+    } catch (error) { /* empty */
+    } finally {
       dispatch(changeReviewsLoadingStatus(false));
     }
   },
@@ -75,8 +87,86 @@ export const fetchNearOffers = createAsyncThunk<void, string, {
       dispatch(changeNearOfferLoadingStatus(true));
       const { data } = await api.get<Offer[]>(`/offers/${id}/nearby`);
       dispatch(loadNearOffers(data));
-    } catch (error) { /* empty */ } finally {
+    } catch (error) { /* empty */
+    } finally {
       dispatch(changeNearOfferLoadingStatus(false));
+    }
+  },
+);
+
+export const login = createAsyncThunk<void, {
+  email: string;
+  password: string;
+}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'login',
+  async ({ email, password }, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.post<User>('/login', { email, password });
+      setToken(data.token);
+      dispatch(changeAuthorizationStatus('auth'));
+      dispatch(setEmail(data.email));
+      dispatch(setAvatarUrl(data.avatarUrl));
+      dispatch(setName(data.name));
+      dispatch(setIsPro(data.isPro));
+    } catch (error) {
+      removeToken();
+      dispatch(changeAuthorizationStatus('no-auth'));
+      dispatch(setEmail(null));
+      dispatch(setAvatarUrl(null));
+      dispatch(setName(null));
+      dispatch(setIsPro(false));
+    } finally { /* empty */
+    }
+  },
+);
+
+export const checkAuth = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'login',
+  async (_arg, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.get<User>('/login');
+      dispatch(changeAuthorizationStatus('auth'));
+      dispatch(setEmail(data.email));
+      dispatch(setAvatarUrl(data.avatarUrl));
+      dispatch(setName(data.name));
+      dispatch(setIsPro(data.isPro));
+    } catch (error) {
+      removeToken();
+      dispatch(setEmail(null));
+      dispatch(setAvatarUrl(null));
+      dispatch(changeAuthorizationStatus('no-auth'));
+      dispatch(setName(null));
+      dispatch(setIsPro(false));
+    } finally { /* empty */
+    }
+  },
+);
+
+export const logout = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'login',
+  async (_arg, { dispatch, extra: api }) => {
+    try {
+      await api.delete('/logout');
+      removeToken();
+      dispatch(changeAuthorizationStatus('no-auth'));
+      dispatch(setEmail(null));
+      dispatch(setAvatarUrl(null));
+      dispatch(setName(null));
+      dispatch(setIsPro(false));
+    } catch (error) { /* empty */
+    } finally { /* empty */
     }
   },
 );
