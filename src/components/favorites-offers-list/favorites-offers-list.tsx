@@ -20,7 +20,6 @@ const getGroupedOffers = (offers: Offer[]) =>
 
 export default function FavoritesOffersList({ offers }: FavoritesOffersListProps) {
   const groupedOffers = getGroupedOffers(offers);
-
   return (
     <ul className="favorites__list">
       {Object.keys(groupedOffers).map((city) => (
@@ -33,7 +32,7 @@ export default function FavoritesOffersList({ offers }: FavoritesOffersListProps
             </div>
           </div>
           <div className="favorites__places">
-            {offers.map((offer: Offer) => (
+            {groupedOffers[city].map((offer: Offer) => (
               <Card key={offer.id} offer={offer} type="favorites" />
             ))}
           </div>

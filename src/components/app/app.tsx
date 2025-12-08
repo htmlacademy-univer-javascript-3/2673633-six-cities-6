@@ -17,7 +17,7 @@ export default function App() {
           path="/favorites"
           element={
             <PrivateRoute>
-              <FavoritesPage offers={[]} />
+              <FavoritesPage />
             </PrivateRoute>
           }
         />

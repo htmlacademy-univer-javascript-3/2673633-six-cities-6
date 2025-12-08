@@ -9,6 +9,7 @@ import {
   changeOffersLoadingStatus,
   changeReviewsLoadingStatus,
   loadCurrentOffer,
+  loadFavoriteOffers,
   loadNearOffers,
   loadOffers,
   loadReviews,
@@ -129,7 +130,7 @@ export const checkAuth = createAsyncThunk<void, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'login',
+  'checkAuth',
   async (_arg, { dispatch, extra: api }) => {
     try {
       const { data } = await api.get<User>('/login');
@@ -155,7 +156,7 @@ export const logout = createAsyncThunk<void, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'login',
+  'logout',
   async (_arg, { dispatch, extra: api }) => {
     try {
       await api.delete('/logout');
@@ -170,3 +171,51 @@ export const logout = createAsyncThunk<void, undefined, {
     }
   },
 );
+
+export const sendReview = createAsyncThunk<void, {
+  id: string;
+  comment: string;
+  rating: string;
+}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'sendReview',
+  async ({ id, comment, rating }, { dispatch, extra: api }) => {
+    await api.post<Review>(`/comments/${id}`, { comment, rating: Number(rating) });
+    dispatch(fetchReviews(id));
+  },
+);
+
+export const fetchFavoriteOffers = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchFavoriteOffers',
+  async (_arg, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.get<Offer[]>('/favorite');
+      dispatch(loadFavoriteOffers(data));
+    } catch (error) { /* empty */
+    } finally { /* empty */
+    }
+  },
+);
+
+export const changeFavoriteStatus = createAsyncThunk<void, {
+  id: string;
+  status: number;
+}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'changeFavoriteStatus',
+  async ({ id, status }, { dispatch, extra: api }) => {
+    await api.post<Offer[]>(`/favorite/${id}/${status}`);
+    dispatch(fetchFavoriteOffers());
+  },
+);
+

@@ -1,13 +1,10 @@
-import { Offer } from '@/types/offer.ts';
 import FavoritesOffersList from '@/components/favorites-offers-list/favorites-offers-list.tsx';
 import Header from '@/widgets/header/header.tsx';
 import Footer from '@/widgets/footer/footer.tsx';
+import { useAppSelector } from '@/hooks/use-app-selector.ts';
 
-type FavoritesPageProps = {
-  offers: Offer[];
-};
-
-export default function FavoritesPage({ offers }: FavoritesPageProps) {
+export default function FavoritesPage() {
+  const offers = useAppSelector((state) => state.favoriteOffers);
   return (
     <div className="page">
       <Header shouldShowNav />
