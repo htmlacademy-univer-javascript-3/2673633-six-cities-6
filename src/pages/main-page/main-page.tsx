@@ -5,12 +5,12 @@ import CitiesTabs from '@/components/cities-tabs/cities-tabs.tsx';
 import Spinner from '@/components/spinner/spinner.tsx';
 
 export default function MainPage() {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector((state) => state.offers.offers);
   const cities = Array.from(
     new Map(offers.map((offer) => [offer.city.name, offer.city])).values(),
   );
-  const currentCity = useAppSelector((state) => state.city);
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  const currentCity = useAppSelector((state) => state.offers.city);
+  const isOffersLoading = useAppSelector((state) => state.offers.isOffersLoading);
   const currentOffers = offers.filter((offer) => offer.city.name === currentCity.name);
 
   if (isOffersLoading) {

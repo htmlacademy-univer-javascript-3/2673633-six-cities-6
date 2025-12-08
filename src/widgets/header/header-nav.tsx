@@ -5,10 +5,10 @@ import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
 import { logout } from '@/store/api-actions.ts';
 
 export default function HeaderNav() {
-  const status = useAppSelector((state) => state.authorizationStatus);
-  const email = useAppSelector((state) => state.email);
-  const avatarUrl = useAppSelector((state) => state.avatarUrl);
-  const favorites = useAppSelector((state) => state.favoriteOffers);
+  const status = useAppSelector((state) => state.user.authorizationStatus);
+  const email = useAppSelector((state) => state.user.email);
+  const avatarUrl = useAppSelector((state) => state.user.avatarUrl);
+  const favorites = useAppSelector((state) => state.user.favoriteOffers);
   const dispatch = useAppDispatch();
 
   const handleClickSignOut = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {

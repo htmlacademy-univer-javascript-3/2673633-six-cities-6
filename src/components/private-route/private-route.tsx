@@ -8,7 +8,7 @@ type PrivateRouteProps = {
 };
 
 export default function PrivateRoute({ children }: PrivateRouteProps) {
-  const status = useAppSelector((state) => state.authorizationStatus);
+  const status = useAppSelector((state) => state.user.authorizationStatus);
 
   if (status === 'unknown') {
     return <Spinner />;

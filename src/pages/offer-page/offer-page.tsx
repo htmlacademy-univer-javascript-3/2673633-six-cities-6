@@ -16,12 +16,12 @@ export default function OfferPage() {
   const { id } = useParams();
 
   const dispatch = useAppDispatch();
-  const offer = useAppSelector((state) => state.currentOffer);
-  const reviews = useAppSelector((state) => state.reviews);
-  const nearOffers = useAppSelector((state) => state.nearOffers);
-  const isCurrentOfferLoading = useAppSelector((state) => state.isCurrentOffersLoading);
-  const isReviewsLoading = useAppSelector((state) => state.isReviewsLoading);
-  const isNearOffersLoading = useAppSelector((state) => state.isNearOffersLoading);
+  const offer = useAppSelector((state) => state.currentOffer.currentOffer);
+  const reviews = useAppSelector((state) => state.currentOffer.reviews);
+  const nearOffers = useAppSelector((state) => state.currentOffer.nearOffers);
+  const isCurrentOfferLoading = useAppSelector((state) => state.currentOffer.isCurrentOffersLoading);
+  const isReviewsLoading = useAppSelector((state) => state.currentOffer.isReviewsLoading);
+  const isNearOffersLoading = useAppSelector((state) => state.currentOffer.isNearOffersLoading);
 
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);

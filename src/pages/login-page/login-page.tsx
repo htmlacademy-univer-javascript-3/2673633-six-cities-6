@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const status = useAppSelector((state) => state.authorizationStatus);
+  const status = useAppSelector((state) => state.user.authorizationStatus);
 
   useEffect(() => {
     if (status === 'auth') {

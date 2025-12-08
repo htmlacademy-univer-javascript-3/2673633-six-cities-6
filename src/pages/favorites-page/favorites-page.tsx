@@ -4,7 +4,7 @@ import Footer from '@/widgets/footer/footer.tsx';
 import { useAppSelector } from '@/hooks/use-app-selector.ts';
 
 export default function FavoritesPage() {
-  const offers = useAppSelector((state) => state.favoriteOffers);
+  const offers = useAppSelector((state) => state.user.favoriteOffers);
   return (
     <div className="page">
       <Header shouldShowNav />

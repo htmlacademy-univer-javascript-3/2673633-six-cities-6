@@ -14,7 +14,7 @@ type CitiesOffersListProps = {
 
 export default function CitiesOffersList({ city, offers }: CitiesOffersListProps) {
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
-  const currentSorting = useAppSelector((state) => state.sorting);
+  const currentSorting = useAppSelector((state) => state.offers.sorting);
   const sortedOffers = sort(offers).by(currentSorting);
 
   return (

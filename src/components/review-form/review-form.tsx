@@ -10,7 +10,7 @@ export default function ReviewForm() {
 
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
 
   const [formState, setFormState] = useState({
     rating: '-1',

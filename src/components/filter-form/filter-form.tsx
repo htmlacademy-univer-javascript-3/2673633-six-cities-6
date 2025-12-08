@@ -7,7 +7,7 @@ import { useState } from 'react';
 export default function FilterForm() {
   const [isOpened, setIsOpened] = useState(false);
   const dispatch = useAppDispatch();
-  const currentSorting = useAppSelector((state) => state.sorting);
+  const currentSorting = useAppSelector((state) => state.offers.sorting);
 
   return (
     <form className="places__sorting" onClick={() => setIsOpened(!isOpened)}>
