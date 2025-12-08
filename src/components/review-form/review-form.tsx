@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo, memo } from 'react';
 import { sendReview } from '@/store/api-actions.ts';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
@@ -6,24 +6,57 @@ import { useAppSelector } from '@/hooks/use-app-selector.ts';
 
 const REVIEW_MIN_LENGTH = 50;
 
-export default function ReviewForm() {
+const RATINGS = [
+  { value: '5', id: '5-stars', title: 'perfect' },
+  { value: '4', id: '4-stars', title: 'good' },
+  { value: '3', id: '3-stars', title: 'not bad' },
+  { value: '2', id: '2-stars', title: 'badly' },
+  { value: '1', id: '1-star', title: 'terribly' },
+];
 
+const RatingOption = memo(({ value, id: reviewId, title, checked, onChange }: {
+  value: string;
+  id: string;
+  title: string;
+  checked: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) => (
+  <React.Fragment key={reviewId}>
+    <input
+      className="form__rating-input visually-hidden"
+      name="rating"
+      value={value}
+      id={reviewId}
+      type="radio"
+      checked={checked}
+      onChange={onChange}
+    />
+    <label htmlFor={reviewId} className="reviews__rating-label form__rating-label" title={title}>
+      <svg className="form__star-image" width="37" height="33">
+        <use xlinkHref="#icon-star"></use>
+      </svg>
+    </label>
+  </React.Fragment>
+));
+
+RatingOption.displayName = 'RatingOption';
+
+export default function ReviewForm() {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
 
   const [formState, setFormState] = useState({
     rating: '-1',
     review: '',
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-    event.preventDefault();
+  const handleChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormState((prev) => ({ ...prev, [name]: value }));
-  };
+  }, []);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (id) {
       (async () => {
@@ -35,17 +68,26 @@ export default function ReviewForm() {
         }
       })();
     }
-  };
+  }, [id, dispatch, formState.review, formState.rating]);
 
-  const isFormValid = formState.rating !== '-1' && formState.review.length >= REVIEW_MIN_LENGTH;
+  const isFormValid = useMemo(
+    () => formState.rating !== '-1' && formState.review.length >= REVIEW_MIN_LENGTH,
+    [formState.rating, formState.review]
+  );
 
-  const ratings = [
-    { value: '5', id: '5-stars', title: 'perfect' },
-    { value: '4', id: '4-stars', title: 'good' },
-    { value: '3', id: '3-stars', title: 'not bad' },
-    { value: '2', id: '2-stars', title: 'badly' },
-    { value: '1', id: '1-star', title: 'terribly' },
-  ];
+  const ratingOptions = useMemo(
+    () => RATINGS.map(({ value, id: reviewId, title }) => (
+      <RatingOption
+        key={reviewId}
+        value={value}
+        id={reviewId}
+        title={title}
+        checked={formState.rating === value}
+        onChange={handleChange}
+      />
+    )),
+    [formState.rating, handleChange]
+  );
 
   if (authorizationStatus !== 'auth') {
     return null;
@@ -57,24 +99,7 @@ export default function ReviewForm() {
         Your review
       </label>
       <div className="reviews__rating-form form__rating">
-        {ratings.map(({ value, id: reviewId, title }) => (
-          <React.Fragment key={reviewId}>
-            <input
-              className="form__rating-input visually-hidden"
-              name="rating"
-              value={value}
-              id={reviewId}
-              type="radio"
-              checked={formState.rating === value}
-              onChange={handleChange}
-            />
-            <label htmlFor={reviewId} className="reviews__rating-label form__rating-label" title={title}>
-              <svg className="form__star-image" width="37" height="33">
-                <use xlinkHref="#icon-star"></use>
-              </svg>
-            </label>
-          </React.Fragment>
-        ))}
+        {ratingOptions}
       </div>
 
       <textarea

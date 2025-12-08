@@ -15,8 +15,6 @@ import {
   loadReviews,
   setAvatarUrl,
   setEmail,
-  setIsPro,
-  setName,
 } from '@/store/actions.ts';
 import { ExpandedOffer } from '@/types/expanded-offer.ts';
 import { Review } from '@/types/review.ts';
@@ -111,15 +109,11 @@ export const login = createAsyncThunk<void, {
       dispatch(changeAuthorizationStatus('auth'));
       dispatch(setEmail(data.email));
       dispatch(setAvatarUrl(data.avatarUrl));
-      dispatch(setName(data.name));
-      dispatch(setIsPro(data.isPro));
     } catch (error) {
       removeToken();
       dispatch(changeAuthorizationStatus('no-auth'));
       dispatch(setEmail(null));
       dispatch(setAvatarUrl(null));
-      dispatch(setName(null));
-      dispatch(setIsPro(false));
     } finally { /* empty */
     }
   },
@@ -137,15 +131,11 @@ export const checkAuth = createAsyncThunk<void, undefined, {
       dispatch(changeAuthorizationStatus('auth'));
       dispatch(setEmail(data.email));
       dispatch(setAvatarUrl(data.avatarUrl));
-      dispatch(setName(data.name));
-      dispatch(setIsPro(data.isPro));
     } catch (error) {
       removeToken();
       dispatch(setEmail(null));
       dispatch(setAvatarUrl(null));
       dispatch(changeAuthorizationStatus('no-auth'));
-      dispatch(setName(null));
-      dispatch(setIsPro(false));
     } finally { /* empty */
     }
   },
@@ -164,8 +154,6 @@ export const logout = createAsyncThunk<void, undefined, {
       dispatch(changeAuthorizationStatus('no-auth'));
       dispatch(setEmail(null));
       dispatch(setAvatarUrl(null));
-      dispatch(setName(null));
-      dispatch(setIsPro(false));
     } catch (error) { /* empty */
     } finally { /* empty */
     }

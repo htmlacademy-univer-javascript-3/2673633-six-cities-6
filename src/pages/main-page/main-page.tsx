@@ -3,15 +3,22 @@ import Header from '@/widgets/header/header.tsx';
 import { useAppSelector } from '@/hooks/use-app-selector.ts';
 import CitiesTabs from '@/components/cities-tabs/cities-tabs.tsx';
 import Spinner from '@/components/spinner/spinner.tsx';
+import { memo, useMemo } from 'react';
 
-export default function MainPage() {
-  const offers = useAppSelector((state) => state.offers);
-  const cities = Array.from(
-    new Map(offers.map((offer) => [offer.city.name, offer.city])).values(),
+const MainPage = memo(() => {
+  const offers = useAppSelector((state) => state.offers.offers);
+  const currentCity = useAppSelector((state) => state.offers.city);
+  const isOffersLoading = useAppSelector((state) => state.offers.isOffersLoading);
+
+  const cities = useMemo(
+    () => Array.from(new Map(offers.map((offer) => [offer.city.name, offer.city])).values()),
+    [offers],
   );
-  const currentCity = useAppSelector((state) => state.city);
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
-  const currentOffers = offers.filter((offer) => offer.city.name === currentCity.name);
+
+  const currentOffers = useMemo(
+    () => offers.filter((offer) => offer.city.name === currentCity.name),
+    [offers, currentCity.name],
+  );
 
   if (isOffersLoading) {
     return <Spinner />;
@@ -26,4 +33,8 @@ export default function MainPage() {
       </main>
     </div>
   );
-}
+});
+
+MainPage.displayName = 'MainPage';
+
+export default MainPage;

@@ -18,6 +18,4 @@ export const changeNearOfferLoadingStatus = createAction<boolean>('changeNearOff
 export const changeAuthorizationStatus = createAction<'auth' | 'no-auth' | 'unknown'>('changeAuthorizationStatus');
 export const setEmail = createAction<string | null>('setEmail');
 export const setAvatarUrl = createAction<string | null>('setAvatarUrl');
-export const setIsPro = createAction<boolean>('setIsPro');
-export const setName = createAction<string | null>('setName');
 export const loadFavoriteOffers = createAction<Offer[]>('loadFavoriteOffers');
