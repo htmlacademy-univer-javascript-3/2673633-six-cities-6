@@ -1,10 +1,10 @@
 import Header from '@/widgets/header/header.tsx';
 import LoginForm from '@/components/login-form/login-form.tsx';
-import { useEffect } from 'react';
 import { useAppSelector } from '@/hooks/use-app-selector.ts';
 import { useNavigate } from 'react-router-dom';
+import { memo, useEffect } from 'react';
 
-export default function LoginPage() {
+const LoginPage = memo(() => {
   const navigate = useNavigate();
   const status = useAppSelector((state) => state.user.authorizationStatus);
 
@@ -34,4 +34,8 @@ export default function LoginPage() {
       </main>
     </div>
   );
-}
+});
+
+LoginPage.displayName = 'LoginPage';
+
+export default LoginPage;

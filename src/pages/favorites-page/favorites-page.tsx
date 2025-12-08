@@ -2,9 +2,11 @@ import FavoritesOffersList from '@/components/favorites-offers-list/favorites-of
 import Header from '@/widgets/header/header.tsx';
 import Footer from '@/widgets/footer/footer.tsx';
 import { useAppSelector } from '@/hooks/use-app-selector.ts';
+import { memo } from 'react';
 
-export default function FavoritesPage() {
+const FavoritesPage = memo(() => {
   const offers = useAppSelector((state) => state.user.favoriteOffers);
+
   return (
     <div className="page">
       <Header shouldShowNav />
@@ -19,4 +21,8 @@ export default function FavoritesPage() {
       <Footer />
     </div>
   );
-}
+});
+
+FavoritesPage.displayName = 'FavoritesPage';
+
+export default FavoritesPage;

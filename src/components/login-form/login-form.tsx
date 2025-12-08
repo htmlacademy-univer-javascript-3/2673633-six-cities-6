@@ -1,6 +1,8 @@
 import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { login } from '@/store/api-actions.ts';
+
+const PASSWORD_REGEX = /(?=.*\p{L})(?=.*\d)/u;
 
 export default function LoginForm() {
   const dispatch = useAppDispatch();
@@ -8,12 +10,23 @@ export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const isPasswordValid = /(?=.*\p{L})(?=.*\d)/u.test(password);
+  const handleEmailChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  }, []);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handlePasswordChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  }, []);
+
+  const isPasswordValid = useMemo(
+    () => PASSWORD_REGEX.test(password),
+    [password]
+  );
+
+  const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(login({ email, password }));
-  };
+  }, [dispatch, email, password]);
 
   return (
     <form className="login__form form" onSubmit={handleSubmit}>
@@ -25,7 +38,7 @@ export default function LoginForm() {
           name="email"
           placeholder="Email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleEmailChange}
           required
         />
       </div>
@@ -37,7 +50,7 @@ export default function LoginForm() {
           name="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handlePasswordChange}
           required
         />
       </div>
