@@ -1,5 +1,8 @@
 import { Offer } from '@/types/offer.ts';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { changeFavoriteStatus } from '@/store/api-actions.ts';
+import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
 
 type CardType = 'cities' | 'favorites' | 'near-places';
 
@@ -23,6 +26,20 @@ const getDimensions = (type: CardType) => {
 
 export default function Card({ offer, type, onMouseEnter, onMouseLeave }: CardProps) {
   const { width, height } = getDimensions(type);
+  const dispatch = useAppDispatch();
+  const [isFavorite, setIsFavorite] = useState(offer.isFavorite);
+
+  const handleClickOnFavorite = () => {
+    (async () => {
+      try {
+        await dispatch(changeFavoriteStatus({ id: offer.id, status: Number(!isFavorite) }))
+          .unwrap();
+        setIsFavorite(!isFavorite);
+      } catch {
+        /* ignore */
+      }
+    })();
+  };
 
   return (
     <article
@@ -53,14 +70,15 @@ export default function Card({ offer, type, onMouseEnter, onMouseLeave }: CardPr
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button ${offer.isFavorite && 'place-card__bookmark-button--active'} button`}
+            onClick={handleClickOnFavorite}
+            className={`place-card__bookmark-button ${isFavorite && 'place-card__bookmark-button--active'} button`}
             type="button"
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
             <span className="visually-hidden">
-              {offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}
+              {isFavorite ? 'In bookmarks' : 'To bookmarks'}
             </span>
           </button>
         </div>

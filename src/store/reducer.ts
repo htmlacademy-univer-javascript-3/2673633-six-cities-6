@@ -7,7 +7,7 @@ import {
   changeOffersLoadingStatus,
   changeReviewsLoadingStatus,
   changeSorting,
-  loadCurrentOffer,
+  loadCurrentOffer, loadFavoriteOffers,
   loadNearOffers,
   loadOffers,
   loadReviews,
@@ -38,6 +38,7 @@ type InitialState = {
   avatarUrl: string | null;
   name: string | null;
   isPro: boolean;
+  favoriteOffers: Offer[];
 }
 
 const initialState: InitialState = {
@@ -63,6 +64,7 @@ const initialState: InitialState = {
   avatarUrl: null,
   name: null,
   isPro: false,
+  favoriteOffers: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -111,6 +113,9 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setIsPro, (state, action) => {
       state.isPro = action.payload;
+    })
+    .addCase(loadFavoriteOffers, (state, action) => {
+      state.favoriteOffers = action.payload;
     });
 });
 

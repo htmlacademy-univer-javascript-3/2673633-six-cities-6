@@ -9,6 +9,7 @@ import {
   changeOffersLoadingStatus,
   changeReviewsLoadingStatus,
   loadCurrentOffer,
+  loadFavoriteOffers,
   loadNearOffers,
   loadOffers,
   loadReviews,
@@ -182,11 +183,39 @@ export const sendReview = createAsyncThunk<void, {
 }>(
   'sendReview',
   async ({ id, comment, rating }, { dispatch, extra: api }) => {
+    await api.post<Review>(`/comments/${id}`, { comment, rating: Number(rating) });
+    dispatch(fetchReviews(id));
+  },
+);
+
+export const fetchFavoriteOffers = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'fetchFavoriteOffers',
+  async (_arg, { dispatch, extra: api }) => {
     try {
-      await api.post<Review>(`/comments/${id}`, { comment, rating: Number(rating) });
-      dispatch(fetchReviews(id));
+      const { data } = await api.get<Offer[]>('/favorite');
+      dispatch(loadFavoriteOffers(data));
     } catch (error) { /* empty */
     } finally { /* empty */
     }
   },
 );
+
+export const changeFavoriteStatus = createAsyncThunk<void, {
+  id: string;
+  status: number;
+}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'changeFavoriteStatus',
+  async ({ id, status }, { dispatch, extra: api }) => {
+    await api.post<Offer[]>(`/favorite/${id}/${status}`);
+    dispatch(fetchFavoriteOffers());
+  },
+);
+

@@ -6,7 +6,7 @@ import MapWrapper from '@/components/map-wrapper/map-wrapper.tsx';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
-import { fetchNearOffers, fetchOffer, fetchReviews } from '@/store/api-actions.ts';
+import { changeFavoriteStatus, fetchNearOffers, fetchOffer, fetchReviews } from '@/store/api-actions.ts';
 import { loadCurrentOffer, loadNearOffers, loadReviews } from '@/store/actions.ts';
 import { useAppSelector } from '@/hooks/use-app-selector.ts';
 import { Offer } from '@/types/offer.ts';
@@ -24,6 +24,25 @@ export default function OfferPage() {
   const isNearOffersLoading = useAppSelector((state) => state.isNearOffersLoading);
 
   const [activeCard, setActiveCard] = useState<Offer | null>(null);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+
+  const handleClickOnFavorite = () => {
+    if (offer) {
+      (async () => {
+        try {
+          await dispatch(changeFavoriteStatus({ id: offer.id, status: Number(!isFavorite) }))
+            .unwrap();
+          setIsFavorite(!isFavorite);
+        } catch {
+          /* ignore */
+        }
+      })();
+    }
+  };
+
+  useEffect(() => {
+    setIsFavorite(Boolean(offer?.isFavorite));
+  }, [offer]);
 
   useEffect(() => {
     if (id) {
@@ -73,7 +92,8 @@ export default function OfferPage() {
                     <div className="offer__name-wrapper">
                       <h1 className="offer__name">{offer.title}</h1>
                       <button
-                        className={`offer__bookmark-button ${offer.isFavorite && 'offer__bookmark-button--active'} button`}
+                        onClick={handleClickOnFavorite}
+                        className={`offer__bookmark-button ${isFavorite && 'offer__bookmark-button--active'} button`}
                         type="button"
                       >
                         <svg className="offer__bookmark-icon" width="31" height="33">

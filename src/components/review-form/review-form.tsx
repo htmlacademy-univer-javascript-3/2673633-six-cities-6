@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { sendReview } from '@/store/api-actions.ts';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
+import { useAppSelector } from '@/hooks/use-app-selector.ts';
 
 const REVIEW_MIN_LENGTH = 50;
 
@@ -9,6 +10,7 @@ export default function ReviewForm() {
 
   const { id } = useParams();
   const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector(state => state.authorizationStatus);
 
   const [formState, setFormState] = useState({
     rating: '-1',
@@ -21,14 +23,15 @@ export default function ReviewForm() {
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (id) {
-      dispatch(sendReview({ id, comment: formState.review, rating: formState.rating }));
-      setFormState({
-        rating: '-1',
-        review: '',
-      });
+      try {
+        await dispatch(sendReview({ id, comment: formState.review, rating: formState.rating }))
+          .unwrap().then(() => setFormState({ rating: '-1', review: '' }));
+      } catch (error) {
+        /* empty */
+      }
     }
   };
 
@@ -41,6 +44,10 @@ export default function ReviewForm() {
     { value: '2', id: '2-stars', title: 'badly' },
     { value: '1', id: '1-star', title: 'terribly' },
   ];
+
+  if (authorizationStatus !== 'auth') {
+    return null;
+  }
 
   return (
     <form className="reviews__form form" onSubmit={handleSubmit}>
