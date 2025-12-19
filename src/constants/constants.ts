@@ -4,6 +4,10 @@ export const URL_MARKER_DEFAULT =
 export const URL_MARKER_CURRENT =
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
 
+export const BASE_URL = 'https://14.design.htmlacademy.pro/six-cities';
+
+export const TIMEOUT = 5000;
+
 export const PASSWORD_REGEX = /(?=.*\p{L})(?=.*\d)/u;
 
 export const REVIEW_MIN_LENGTH = 50;
