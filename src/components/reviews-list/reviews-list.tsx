@@ -6,11 +6,16 @@ type ReviewsListProps = {
 }
 
 export default function ReviewsList({ reviews }: ReviewsListProps) {
+  const sortedReviews = [...reviews].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+
   return (
     <ul className="reviews__list">
-      {reviews.map((review) => (
+      {sortedReviews.slice(0, 10).map((review) => (
         <ReviewItem key={review.id} review={review} />
       ))}
     </ul>
   );
 }
+

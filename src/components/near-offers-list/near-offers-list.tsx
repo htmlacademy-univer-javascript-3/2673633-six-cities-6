@@ -3,10 +3,9 @@ import Card from '@/components/card/card.tsx';
 
 type NearOffersListProps = {
   offers: Offer[];
-  setActiveCard: (card: Offer | null) => void;
 }
 
-export default function NearOffersList({ offers, setActiveCard }: NearOffersListProps) {
+export default function NearOffersList({ offers }: NearOffersListProps) {
   return (
     <div className="container">
       <section className="near-places places">
@@ -17,8 +16,6 @@ export default function NearOffersList({ offers, setActiveCard }: NearOffersList
               key={offer.id}
               offer={offer}
               type={'near-places'}
-              onMouseEnter={() => setActiveCard(offer)}
-              onMouseLeave={() => setActiveCard(null)}
             />
           ))};
         </div>

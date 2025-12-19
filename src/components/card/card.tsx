@@ -1,5 +1,5 @@
 import { Offer } from '@/types/offer.ts';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { memo, useCallback, useMemo } from 'react';
 import { changeFavoriteStatus } from '@/store/api-actions.ts';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
@@ -30,15 +30,21 @@ const getDimensions = (type: CardType) => {
 const Card = memo(({ offer, type, onMouseEnter, onMouseLeave }: CardProps) => {
   const { width, height } = getDimensions(type);
   const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
   const favorites = useAppSelector((state) => state.user.favoriteOffers);
   const isFavorite = favorites.some((item) => item.id === offer.id);
+  const navigate = useNavigate();
 
   const handleClickOnFavorite = useCallback(() => {
-    dispatch(changeFavoriteStatus({
-      id: offer.id,
-      status: isFavorite ? 0 : 1,
-    }));
-  }, [dispatch, offer, isFavorite]);
+    if (authorizationStatus === 'auth') {
+      dispatch(changeFavoriteStatus({
+        id: offer.id,
+        status: isFavorite ? 0 : 1,
+      }));
+    } else {
+      navigate('/login');
+    }
+  }, [navigate, authorizationStatus, dispatch, offer, isFavorite]);
 
   const bookmarkClassName = useMemo(
     () => `place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''} button`,
