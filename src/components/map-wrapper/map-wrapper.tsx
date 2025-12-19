@@ -12,7 +12,7 @@ type MapWrapperProps = {
 };
 
 export default function MapWrapper({ type, city, offers, selectedOffer }: MapWrapperProps) {
-  const points: Point[] = offers.map((offer: Offer| ExpandedOffer) => ({
+  const points: Point[] = offers.map((offer: Offer | ExpandedOffer) => ({
     id: offer.id,
     lat: offer.location.latitude,
     lng: offer.location.longitude,

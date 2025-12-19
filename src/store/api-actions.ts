@@ -205,10 +205,8 @@ export const changeFavoriteStatus = createAsyncThunk<void, {
     try {
       await api.post<Offer[]>(`/favorite/${id}/${status}`);
       dispatch(fetchFavoriteOffers());
-    } catch (error) {
-      /* empty */
-    } finally {
-      /* empty */
+    } catch (error) { /* empty */
+    } finally { /* empty */
     }
   },
 );

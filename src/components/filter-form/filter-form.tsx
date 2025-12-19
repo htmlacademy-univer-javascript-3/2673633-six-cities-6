@@ -1,10 +1,10 @@
 import { useAppSelector } from '@/hooks/use-app-selector.ts';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
 import { changeSorting } from '@/store/actions.ts';
-import { SortingOptions } from '@/utils/sorting-variables.ts';
 import { memo, useCallback, useMemo, useState } from 'react';
+import { SORTING_OPTIONS } from '@/constants/constants.ts';
 
-const OPTIONS = Object.values(SortingOptions);
+const OPTIONS = Object.values(SORTING_OPTIONS);
 
 const Option = memo(({ option, isActive, onSelect }: {
   option: string;
@@ -33,7 +33,7 @@ export default function FilterForm() {
   }, []);
 
   const handleSelect = useCallback((sorting: string) => {
-    dispatch(changeSorting(sorting as SortingOptions));
+    dispatch(changeSorting(sorting as SORTING_OPTIONS));
   }, [dispatch]);
 
   const ulClassName = useMemo(

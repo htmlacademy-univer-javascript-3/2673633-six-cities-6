@@ -4,6 +4,7 @@ import { memo, useCallback, useMemo } from 'react';
 import { changeFavoriteStatus } from '@/store/api-actions.ts';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
 import { useAppSelector } from '@/hooks/use-app-selector.ts';
+import { PATHS } from '@/constants/constants.ts';
 
 type CardType = 'cities' | 'favorites' | 'near-places';
 
@@ -42,7 +43,7 @@ const Card = memo(({ offer, type, onMouseEnter, onMouseLeave }: CardProps) => {
         status: isFavorite ? 0 : 1,
       }));
     } else {
-      navigate('/login');
+      navigate(PATHS.Login);
     }
   }, [navigate, authorizationStatus, dispatch, offer, isFavorite]);
 

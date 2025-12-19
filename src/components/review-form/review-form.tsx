@@ -3,16 +3,7 @@ import { sendReview } from '@/store/api-actions.ts';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
 import { useAppSelector } from '@/hooks/use-app-selector.ts';
-
-const REVIEW_MIN_LENGTH = 50;
-
-const RATINGS = [
-  { value: '5', id: '5-stars', title: 'perfect' },
-  { value: '4', id: '4-stars', title: 'good' },
-  { value: '3', id: '3-stars', title: 'not bad' },
-  { value: '2', id: '2-stars', title: 'badly' },
-  { value: '1', id: '1-star', title: 'terribly' },
-];
+import { RATINGS, REVIEW_MIN_LENGTH } from '@/constants/constants.ts';
 
 const RatingOption = memo(({ value, id: reviewId, title, checked, onChange }: {
   value: string;

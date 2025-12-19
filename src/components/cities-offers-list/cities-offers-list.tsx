@@ -5,7 +5,7 @@ import Card from '@/components/card/card.tsx';
 import FilterForm from '@/components/filter-form/filter-form.tsx';
 import MapWrapper from '@/components/map-wrapper/map-wrapper.tsx';
 import { useAppSelector } from '@/hooks/use-app-selector.ts';
-import { sort } from '@/utils/sorting-variables.ts';
+import { sort } from '@/utils/sorting.ts';
 
 type CitiesOffersListProps = {
   city: City;

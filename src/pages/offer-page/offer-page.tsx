@@ -10,6 +10,7 @@ import { changeFavoriteStatus, fetchNearOffers, fetchOffer, fetchReviews } from 
 import { loadCurrentOffer, loadNearOffers, loadReviews } from '@/store/actions.ts';
 import { useAppSelector } from '@/hooks/use-app-selector.ts';
 import Spinner from '@/components/spinner/spinner.tsx';
+import { PATHS } from '@/constants/constants.ts';
 
 const ImageWrapper = memo(({ image }: { image: string }) => (
   <div className="offer__image-wrapper">
@@ -48,7 +49,7 @@ export default function OfferPage() {
         status: isFavorite ? 0 : 1,
       }));
     } else {
-      navigate('/login');
+      navigate(PATHS.Login);
     }
   }, [navigate, authorizationStatus, dispatch, offer, isFavorite]);
 

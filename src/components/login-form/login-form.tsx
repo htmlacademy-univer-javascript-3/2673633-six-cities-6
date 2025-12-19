@@ -1,8 +1,7 @@
 import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
 import React, { useState, useCallback, useMemo } from 'react';
 import { login } from '@/store/api-actions.ts';
-
-const PASSWORD_REGEX = /(?=.*\p{L})(?=.*\d)/u;
+import { PASSWORD_REGEX } from '@/constants/constants.ts';
 
 export default function LoginForm() {
   const dispatch = useAppDispatch();
