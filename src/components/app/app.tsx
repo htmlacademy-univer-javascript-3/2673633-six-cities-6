@@ -6,23 +6,24 @@ import OfferPage from '@/pages/offer-page/offer-page.tsx';
 import NotFoundPage from '@/pages/not-found-page/not-found-page.tsx';
 import FavoritesPage from '@/pages/favorites-page/favorites-page.tsx';
 import PrivateRoute from '@/components/private-route/private-route.tsx';
+import { PATHS } from '@/constants/constants.ts';
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path={PATHS.Main} element={<MainPage />} />
+        <Route path={PATHS.Login} element={<LoginPage />} />
         <Route
-          path="/favorites"
+          path={PATHS.Favorites}
           element={
             <PrivateRoute>
               <FavoritesPage />
             </PrivateRoute>
           }
         />
-        <Route path="/offer/:id" element={<OfferPage />} />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path={PATHS.Offer} element={<OfferPage />} />
+        <Route path={PATHS.NotFound} element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );

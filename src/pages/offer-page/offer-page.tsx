@@ -3,14 +3,14 @@ import ReviewForm from '@/components/review-form/review-form.tsx';
 import ReviewsList from '@/components/reviews-list/reviews-list.tsx';
 import NearOffersList from '@/components/near-offers-list/near-offers-list.tsx';
 import MapWrapper from '@/components/map-wrapper/map-wrapper.tsx';
-import { useParams } from 'react-router-dom';
-import { useEffect, useState, useCallback, useMemo, memo } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
 import { changeFavoriteStatus, fetchNearOffers, fetchOffer, fetchReviews } from '@/store/api-actions.ts';
 import { loadCurrentOffer, loadNearOffers, loadReviews } from '@/store/actions.ts';
 import { useAppSelector } from '@/hooks/use-app-selector.ts';
-import { Offer } from '@/types/offer.ts';
 import Spinner from '@/components/spinner/spinner.tsx';
+import { PATHS } from '@/constants/constants.ts';
 
 const ImageWrapper = memo(({ image }: { image: string }) => (
   <div className="offer__image-wrapper">
@@ -31,36 +31,27 @@ export default function OfferPage() {
 
   const dispatch = useAppDispatch();
   const offer = useAppSelector((state) => state.currentOffer.currentOffer);
+  const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
   const reviews = useAppSelector((state) => state.currentOffer.reviews);
   const nearOffers = useAppSelector((state) => state.currentOffer.nearOffers);
   const isCurrentOfferLoading = useAppSelector((state) => state.currentOffer.isCurrentOffersLoading);
   const isReviewsLoading = useAppSelector((state) => state.currentOffer.isReviewsLoading);
   const isNearOffersLoading = useAppSelector((state) => state.currentOffer.isNearOffersLoading);
+  const favorites = useAppSelector((state) => state.user.favoriteOffers);
+  const isFavorite = favorites.some((item) => item.id === offer?.id);
 
-  const [activeCard, setActiveCard] = useState<Offer | null>(null);
-  const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const handleClickOnFavorite = useCallback(() => {
-    if (offer) {
-      (async () => {
-        try {
-          await dispatch(changeFavoriteStatus({ id: offer.id, status: Number(!isFavorite) }))
-            .unwrap();
-          setIsFavorite(!isFavorite);
-        } catch {
-          /* ignore */
-        }
-      })();
+    if (authorizationStatus === 'auth' && offer) {
+      dispatch(changeFavoriteStatus({
+        id: offer.id,
+        status: isFavorite ? 0 : 1,
+      }));
+    } else {
+      navigate(PATHS.Login);
     }
-  }, [offer, dispatch, isFavorite]);
-
-  const handleSetActiveCard = useCallback((card: Offer | null) => {
-    setActiveCard(card);
-  }, []);
-
-  useEffect(() => {
-    setIsFavorite(Boolean(offer?.isFavorite));
-  }, [offer]);
+  }, [navigate, authorizationStatus, dispatch, offer, isFavorite]);
 
   useEffect(() => {
     if (id) {
@@ -77,12 +68,12 @@ export default function OfferPage() {
 
   const galleryImages = useMemo(
     () => offer?.images?.map((image) => <ImageWrapper key={image} image={image} />) || [],
-    [offer]
+    [offer],
   );
 
   const insideItems = useMemo(
     () => offer?.goods?.map((good) => <FeatureItem key={good} feature={good} />) || [],
-    [offer]
+    [offer],
   );
 
   const reviewsSection = useMemo(
@@ -99,7 +90,7 @@ export default function OfferPage() {
         <ReviewForm />
       </section>
     ),
-    [reviews, isReviewsLoading]
+    [reviews, isReviewsLoading],
   );
 
   const nearOffersSection = useMemo(
@@ -107,15 +98,15 @@ export default function OfferPage() {
       isNearOffersLoading ? (
         <Spinner />
       ) : (
-        <NearOffersList offers={nearOffers} setActiveCard={handleSetActiveCard} />
+        <NearOffersList offers={nearOffers} />
       )
     ),
-    [nearOffers, isNearOffersLoading, handleSetActiveCard]
+    [nearOffers, isNearOffersLoading],
   );
 
   const bookmarkButtonClassName = useMemo(
     () => `offer__bookmark-button ${isFavorite && 'offer__bookmark-button--active'} button`,
-    [isFavorite]
+    [isFavorite],
   );
 
   const ratingWidth = useMemo(() => offer?.rating ? `${offer.rating * 20}%` : '0%', [offer]);
@@ -200,7 +191,7 @@ export default function OfferPage() {
               {reviewsSection}
             </div>
           </div>
-          <MapWrapper type={'offer'} city={offer.city} offers={nearOffers} selectedOffer={activeCard} />
+          <MapWrapper type={'offer'} city={offer.city} offers={[...nearOffers.slice(0, 3), offer]} selectedOffer={offer} />
         </section>
         {nearOffersSection}
       </main>

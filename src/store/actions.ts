@@ -2,13 +2,13 @@ import { createAction } from '@reduxjs/toolkit';
 import { City } from '@/types/city.ts';
 import { Offer } from '@/types/offer.ts';
 import { Review } from '@/types/review.ts';
-import { SortingOptions } from '@/utils/sorting-variables.ts';
 import { ExpandedOffer } from '@/types/expanded-offer.ts';
+import { SORTING_OPTIONS } from '@/constants/constants.ts';
 
 export const changeCity = createAction<City>('changeCity');
 export const loadOffers = createAction<Offer[]>('fillOffers');
 export const changeOffersLoadingStatus = createAction<boolean>('changeOffersLoadingStatus');
-export const changeSorting = createAction<SortingOptions>('changeSorting');
+export const changeSorting = createAction<SORTING_OPTIONS>('changeSorting');
 export const loadCurrentOffer = createAction<ExpandedOffer | null>('loadCurrentOffer');
 export const changeCurrentOfferLoadingStatus = createAction<boolean>('changeCurrentOfferLoadingStatus');
 export const loadReviews = createAction<Review[]>('loadReviews');

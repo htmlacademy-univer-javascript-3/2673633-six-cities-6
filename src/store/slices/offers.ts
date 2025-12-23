@@ -1,28 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { changeCity, changeOffersLoadingStatus, changeSorting, loadOffers } from '@/store/actions';
 import { Offer } from '@/types/offer';
-import { SortingOptions } from '@/utils/sorting-variables';
 import { City } from '@/types/city.ts';
+import { DEFAULT_CITY, SORTING_OPTIONS } from '@/constants/constants.ts';
 
 type OffersState = {
   city: City;
   offers: Offer[];
   isOffersLoading: boolean;
-  sorting: SortingOptions;
+  sorting: SORTING_OPTIONS;
 };
 
 const initialState: OffersState = {
-  city: {
-    name: 'Paris',
-    location: {
-      latitude: 48.85661,
-      longitude: 2.351499,
-      zoom: 13,
-    },
-  },
+  city: DEFAULT_CITY,
   offers: [],
   isOffersLoading: false,
-  sorting: SortingOptions.Popular,
+  sorting: SORTING_OPTIONS.Popular,
 };
 
 export const offers = createSlice({
