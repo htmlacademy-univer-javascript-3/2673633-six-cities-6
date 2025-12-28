@@ -1,5 +1,5 @@
-import { City } from '@/types/city.ts';
-import { GeoLocation } from '@/types/geolocation.ts';
+import { City } from '@/types/city/city.ts';
+import { GeoLocation } from '@/types/geolocation/geolocation.ts';
 
 export type ExpandedOffer = {
   id: string;

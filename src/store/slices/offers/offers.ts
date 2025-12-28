@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { changeCity, changeOffersLoadingStatus, changeSorting, loadOffers } from '@/store/actions';
-import { Offer } from '@/types/offer';
-import { City } from '@/types/city.ts';
+import { changeCity, changeOffersLoadingStatus, changeSorting, loadOffers } from '@/store/actions.ts';
+import { Offer } from '@/types/offer/offer.ts';
+import { City } from '@/types/city/city.ts';
 import { DEFAULT_CITY, SORTING_OPTIONS } from '@/constants/constants.ts';
 
 type OffersState = {

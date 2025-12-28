@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { changeAuthorizationStatus, loadFavoriteOffers, setAvatarUrl, setEmail } from '@/store/actions';
-import { Offer } from '@/types/offer.ts';
+import { changeAuthorizationStatus, loadFavoriteOffers, setAvatarUrl, setEmail } from '@/store/actions.ts';
+import { Offer } from '@/types/offer/offer.ts';
 
 type UserState = {
   authorizationStatus: 'auth' | 'no-auth' | 'unknown';

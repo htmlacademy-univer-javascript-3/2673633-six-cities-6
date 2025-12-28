@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { AppDispatch, State } from '@/types/state.ts';
-import { Offer } from '@/types/offer.ts';
+import { AppDispatch, State } from '@/types/state/state.ts';
+import { Offer } from '@/types/offer/offer.ts';
 import {
   changeAuthorizationStatus,
   changeCurrentOfferLoadingStatus,
@@ -16,10 +16,10 @@ import {
   setAvatarUrl,
   setEmail,
 } from '@/store/actions.ts';
-import { ExpandedOffer } from '@/types/expanded-offer.ts';
-import { Review } from '@/types/review.ts';
-import { User } from '@/types/user.ts';
-import { removeToken, setToken } from '@/services/token.ts';
+import { ExpandedOffer } from '@/types/expanded-offer/expanded-offer.ts';
+import { Review } from '@/types/review/review.ts';
+import { User } from '@/types/user/user.ts';
+import { removeToken, setToken } from '@/services/token/token.ts';
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;

@@ -5,10 +5,10 @@ import NearOffersList from '@/components/near-offers-list/near-offers-list.tsx';
 import MapWrapper from '@/components/map-wrapper/map-wrapper.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
 import { memo, useCallback, useEffect, useMemo } from 'react';
-import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
+import { useAppDispatch } from '@/hooks/use-app-dispatch/use-app-dispatch.ts';
 import { changeFavoriteStatus, fetchNearOffers, fetchOffer, fetchReviews } from '@/store/api-actions.ts';
 import { loadCurrentOffer, loadNearOffers, loadReviews } from '@/store/actions.ts';
-import { useAppSelector } from '@/hooks/use-app-selector.ts';
+import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
 import Spinner from '@/components/spinner/spinner.tsx';
 import { PATHS } from '@/constants/constants.ts';
 

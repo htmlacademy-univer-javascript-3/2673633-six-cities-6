@@ -1,4 +1,4 @@
-import { Offer } from '@/types/offer';
+import { Offer } from '@/types/offer/offer.ts';
 import { SORTING_OPTIONS } from '@/constants/constants.ts';
 
 const sortingFunctions = {
