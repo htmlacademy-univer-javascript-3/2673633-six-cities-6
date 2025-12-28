@@ -11,6 +11,8 @@ import { loadCurrentOffer, loadNearOffers, loadReviews } from '@/store/actions.t
 import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
 import Spinner from '@/components/spinner/spinner.tsx';
 import { PATHS } from '@/constants/paths/paths.ts';
+import { AUTH_STATUS } from '@/constants/auth-status/auth-status.ts';
+import { MAP } from '@/constants/map/map.ts';
 
 const ImageWrapper = memo(({ image }: { image: string }) => (
   <div className="offer__image-wrapper">
@@ -43,7 +45,7 @@ export default function OfferPage() {
   const navigate = useNavigate();
 
   const handleClickOnFavorite = useCallback(() => {
-    if (authorizationStatus === 'auth' && offer) {
+    if (authorizationStatus === AUTH_STATUS.Auth && offer) {
       dispatch(changeFavoriteStatus({
         id: offer.id,
         status: isFavorite ? 0 : 1,
@@ -191,7 +193,7 @@ export default function OfferPage() {
               {reviewsSection}
             </div>
           </div>
-          <MapWrapper type={'offer'} city={offer.city} offers={[...nearOffers.slice(0, 3), offer]} selectedOffer={offer} />
+          <MapWrapper type={MAP.Offer} city={offer.city} offers={[...nearOffers.slice(0, 3), offer]} selectedOffer={offer} />
         </section>
         {nearOffersSection}
       </main>

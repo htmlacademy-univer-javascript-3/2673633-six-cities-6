@@ -1,16 +1,17 @@
 import Header from '@/widgets/header/header.tsx';
 import LoginForm from '@/components/login-form/login-form.tsx';
 import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { memo, useEffect } from 'react';
 import { PATHS } from '@/constants/paths/paths.ts';
+import { AUTH_STATUS } from '@/constants/auth-status/auth-status.ts';
 
 const LoginPage = memo(() => {
   const navigate = useNavigate();
   const status = useAppSelector((state) => state.user.authorizationStatus);
 
   useEffect(() => {
-    if (status === 'auth') {
+    if (status === AUTH_STATUS.Auth) {
       navigate(PATHS.Main);
     }
   }, [status, navigate]);
@@ -26,9 +27,9 @@ const LoginPage = memo(() => {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <Link className="locations__item-link" to="#">
                 <span>Amsterdam</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
+import { PATHS } from '@/constants/paths/paths.ts';
 
 export default function Footer() {
   return (
     <footer className="footer container">
-      <Link className="footer__logo-link" to="/">
+      <Link className="footer__logo-link" to={PATHS.Main}>
         <img
           className="footer__logo"
           src="img/logo.svg"

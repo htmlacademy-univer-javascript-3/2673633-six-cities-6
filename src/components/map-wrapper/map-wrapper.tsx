@@ -3,9 +3,10 @@ import { City } from '@/types/city/city.ts';
 import { Offer } from '@/types/offer/offer.ts';
 import { Point } from '@/types/point/point.ts';
 import { ExpandedOffer } from '@/types/expanded-offer/expanded-offer.ts';
+import { Map as MapType } from '@/types/map/map.ts';
 
 type MapWrapperProps = {
-  type: 'offer' | 'cities';
+  type: MapType;
   city: City;
   offers: (ExpandedOffer | Offer)[];
   selectedOffer?: ExpandedOffer | Offer | null;

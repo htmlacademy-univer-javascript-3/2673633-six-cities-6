@@ -4,7 +4,7 @@ import { Offer } from '@/types/offer/offer.ts';
 import { City } from '@/types/city/city.ts';
 import { SORTING_OPTIONS } from '@/constants/forms/forms.ts';
 import { cities } from '@/mocks/cities/cities.ts';
-
+import { SLICE } from '@/constants/store/store.ts';
 
 type OffersState = {
   city: City;
@@ -21,7 +21,7 @@ const initialState: OffersState = {
 };
 
 export const offers = createSlice({
-  name: 'offers',
+  name: SLICE.Offer,
   initialState,
   reducers: {},
   extraReducers: (builder) =>

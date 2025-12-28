@@ -1,11 +1,13 @@
 import { Offer } from '@/types/offer/offer.ts';
 import { City } from '@/types/city/city.ts';
-import { useState, useMemo, useCallback } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import Card from '@/components/card/card.tsx';
 import FilterForm from '@/components/filter-form/filter-form.tsx';
 import MapWrapper from '@/components/map-wrapper/map-wrapper.tsx';
 import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
 import { sort } from '@/utils/sorting/sorting.ts';
+import { CARD } from '@/constants/card/card.ts';
+import { MAP } from '@/constants/map/map.ts';
 
 type CitiesOffersListProps = {
   city: City;
@@ -18,7 +20,7 @@ export default function CitiesOffersList({ city, offers }: CitiesOffersListProps
 
   const sortedOffers = useMemo(
     () => sort(offers).by(currentSorting),
-    [offers, currentSorting]
+    [offers, currentSorting],
   );
 
   const handleMouseEnter = useCallback((offer: Offer) => {
@@ -37,12 +39,12 @@ export default function CitiesOffersList({ city, offers }: CitiesOffersListProps
         <Card
           key={offer.id}
           offer={offer}
-          type="cities"
+          type={CARD.Cities}
           onMouseEnter={() => handleMouseEnter(offer)}
           onMouseLeave={handleMouseLeave}
         />
       )),
-    [sortedOffers, handleMouseEnter, handleMouseLeave]
+    [sortedOffers, handleMouseEnter, handleMouseLeave],
   );
 
   return (
@@ -57,7 +59,7 @@ export default function CitiesOffersList({ city, offers }: CitiesOffersListProps
           </div>
         </section>
         <div className="cities__right-section">
-          <MapWrapper type={'cities'} city={city} offers={offers} selectedOffer={activeCard} />
+          <MapWrapper type={MAP.Cities} city={city} offers={offers} selectedOffer={activeCard} />
         </div>
       </div>
     </div>

@@ -16,3 +16,5 @@ export enum SORTING_OPTIONS {
   HighToLow = 'Price: high to low',
   TopRated = 'Top rated first',
 }
+
+export const OPTIONS = Object.values(SORTING_OPTIONS);

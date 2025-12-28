@@ -1,5 +1,6 @@
 import { Offer } from '@/types/offer/offer.ts';
 import Card from '@/components/card/card.tsx';
+import { CARD } from '@/constants/card/card.ts';
 
 type NearOffersListProps = {
   offers: Offer[];
@@ -15,7 +16,7 @@ export default function NearOffersList({ offers }: NearOffersListProps) {
             <Card
               key={offer.id}
               offer={offer}
-              type={'near-places'}
+              type={CARD.NearPlaces}
             />
           ))};
         </div>

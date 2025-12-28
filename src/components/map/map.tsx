@@ -1,13 +1,14 @@
 import { Icon, layerGroup, Marker } from 'leaflet';
 import { City } from '@/types/city/city.ts';
 import { Point } from '@/types/point/point.ts';
+import { Map as MapType } from '@/types/map/map.ts';
 import { useEffect, useRef } from 'react';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '@/constants/map/map.ts';
 import useMap from '@/hocks/use-map/use-map.ts';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  type: 'offer' | 'cities';
+  type: MapType;
   city: City;
   points: Point[];
   selectedPoint: Point | undefined;

@@ -2,9 +2,7 @@ import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
 import { useAppDispatch } from '@/hooks/use-app-dispatch/use-app-dispatch.ts';
 import { changeSorting } from '@/store/actions.ts';
 import { memo, useCallback, useMemo, useState } from 'react';
-import { SORTING_OPTIONS } from '@/constants/forms/forms.ts';
-
-const OPTIONS = Object.values(SORTING_OPTIONS);
+import { OPTIONS, SORTING_OPTIONS } from '@/constants/forms/forms.ts';
 
 const Option = memo(({ option, isActive, onSelect }: {
   option: string;
