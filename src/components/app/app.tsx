@@ -1,4 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import MainPage from '@/pages/main-page/main-page.tsx';
 import LoginPage from '@/pages/login-page/login-page.tsx';
@@ -25,6 +27,15 @@ export default function App() {
         <Route path={PATHS.Offer} element={<OfferPage />} />
         <Route path={PATHS.NotFound} element={<NotFoundPage />} />
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
     </BrowserRouter>
   );
 }
