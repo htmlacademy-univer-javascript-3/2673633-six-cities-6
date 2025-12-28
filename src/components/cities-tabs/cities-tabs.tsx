@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom';
 import { changeCity } from '@/store/actions.ts';
 import { useAppDispatch } from '@/hooks/use-app-dispatch/use-app-dispatch.ts';
 import { City } from '@/types/city/city.ts';
+import { cities } from '@/mocks/cities/cities.ts';
 
 type CitiesTabsProps = {
-  cities: City[];
   currentCity: City;
 }
 
-export default function CitiesTabs({ cities, currentCity }: CitiesTabsProps) {
+export default function CitiesTabs({ currentCity }: CitiesTabsProps) {
   const dispatch = useAppDispatch();
 
   return (

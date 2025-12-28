@@ -4,7 +4,7 @@ import { memo, useCallback, useMemo } from 'react';
 import { changeFavoriteStatus } from '@/store/api-actions.ts';
 import { useAppDispatch } from '@/hooks/use-app-dispatch/use-app-dispatch.ts';
 import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
-import { PATHS } from '@/constants/constants.ts';
+import { PATHS } from '@/constants/paths/paths.ts';
 
 type CardType = 'cities' | 'favorites' | 'near-places';
 

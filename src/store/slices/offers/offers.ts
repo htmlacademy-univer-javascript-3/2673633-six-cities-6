@@ -2,7 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import { changeCity, changeOffersLoadingStatus, changeSorting, loadOffers } from '@/store/actions.ts';
 import { Offer } from '@/types/offer/offer.ts';
 import { City } from '@/types/city/city.ts';
-import { DEFAULT_CITY, SORTING_OPTIONS } from '@/constants/constants.ts';
+import { SORTING_OPTIONS } from '@/constants/forms/forms.ts';
+import { cities } from '@/mocks/cities/cities.ts';
+
 
 type OffersState = {
   city: City;
@@ -12,7 +14,7 @@ type OffersState = {
 };
 
 const initialState: OffersState = {
-  city: DEFAULT_CITY,
+  city: cities[0],
   offers: [],
   isOffersLoading: false,
   sorting: SORTING_OPTIONS.Popular,

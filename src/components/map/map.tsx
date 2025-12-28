@@ -2,7 +2,7 @@ import { Icon, layerGroup, Marker } from 'leaflet';
 import { City } from '@/types/city/city.ts';
 import { Point } from '@/types/point/point.ts';
 import { useEffect, useRef } from 'react';
-import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '@/constants/constants.ts';
+import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '@/constants/map/map.ts';
 import useMap from '@/hocks/use-map/use-map.ts';
 import 'leaflet/dist/leaflet.css';
 

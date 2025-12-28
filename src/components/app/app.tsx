@@ -6,7 +6,7 @@ import OfferPage from '@/pages/offer-page/offer-page.tsx';
 import NotFoundPage from '@/pages/not-found-page/not-found-page.tsx';
 import FavoritesPage from '@/pages/favorites-page/favorites-page.tsx';
 import PrivateRoute from '@/components/private-route/private-route.tsx';
-import { PATHS } from '@/constants/constants.ts';
+import { PATHS } from '@/constants/paths/paths.ts';
 
 export default function App() {
   return (

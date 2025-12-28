@@ -10,7 +10,7 @@ import { changeFavoriteStatus, fetchNearOffers, fetchOffer, fetchReviews } from 
 import { loadCurrentOffer, loadNearOffers, loadReviews } from '@/store/actions.ts';
 import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
 import Spinner from '@/components/spinner/spinner.tsx';
-import { PATHS } from '@/constants/constants.ts';
+import { PATHS } from '@/constants/paths/paths.ts';
 
 const ImageWrapper = memo(({ image }: { image: string }) => (
   <div className="offer__image-wrapper">

@@ -3,7 +3,7 @@ import LoginForm from '@/components/login-form/login-form.tsx';
 import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
 import { useNavigate } from 'react-router-dom';
 import { memo, useEffect } from 'react';
-import { PATHS } from '@/constants/constants.ts';
+import { PATHS } from '@/constants/paths/paths.ts';
 
 const LoginPage = memo(() => {
   const navigate = useNavigate();

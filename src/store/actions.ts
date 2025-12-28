@@ -3,7 +3,7 @@ import { City } from '@/types/city/city.ts';
 import { Offer } from '@/types/offer/offer.ts';
 import { Review } from '@/types/review/review.ts';
 import { ExpandedOffer } from '@/types/expanded-offer/expanded-offer.ts';
-import { SORTING_OPTIONS } from '@/constants/constants.ts';
+import { SORTING_OPTIONS } from '@/constants/forms/forms.ts';
 
 export const changeCity = createAction<City>('changeCity');
 export const loadOffers = createAction<Offer[]>('fillOffers');
