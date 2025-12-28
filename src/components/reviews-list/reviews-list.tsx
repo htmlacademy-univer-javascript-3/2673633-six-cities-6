@@ -1,4 +1,4 @@
-import { Review } from '@/types/review.ts';
+import { Review } from '@/types/review/review.ts';
 import ReviewItem from '@/components/review-item/review-item.tsx';
 
 type ReviewsListProps = {

@@ -1,7 +1,8 @@
-import { Offer } from '@/types/offer.ts';
+import { Offer } from '@/types/offer/offer.ts';
 import Card from '@/components/card/card.tsx';
 import { Link } from 'react-router-dom';
 import { useMemo } from 'react';
+import { CARD } from '@/constants/card/card.ts';
 
 type FavoritesOffersListProps = {
   offers: Offer[];
@@ -38,7 +39,7 @@ export default function FavoritesOffersList({ offers }: FavoritesOffersListProps
           </div>
           <div className="favorites__places">
             {groupedOffers[city].map((offer: Offer) => (
-              <Card key={offer.id} offer={offer} type="favorites" />
+              <Card key={offer.id} offer={offer} type={CARD.Favorites} />
             ))}
           </div>
         </li>

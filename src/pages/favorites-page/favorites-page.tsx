@@ -1,7 +1,7 @@
 import FavoritesOffersList from '@/components/favorites-offers-list/favorites-offers-list.tsx';
 import Header from '@/widgets/header/header.tsx';
 import Footer from '@/widgets/footer/footer.tsx';
-import { useAppSelector } from '@/hooks/use-app-selector.ts';
+import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
 import { memo } from 'react';
 
 const FavoritesPage = memo(() => {

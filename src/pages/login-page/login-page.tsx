@@ -1,19 +1,30 @@
 import Header from '@/widgets/header/header.tsx';
 import LoginForm from '@/components/login-form/login-form.tsx';
-import { useAppSelector } from '@/hooks/use-app-selector.ts';
-import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
+import { Link, useNavigate } from 'react-router-dom';
 import { memo, useEffect } from 'react';
-import { PATHS } from '@/constants/constants.ts';
+import { PATHS } from '@/constants/paths/paths.ts';
+import { AUTH_STATUS } from '@/constants/auth-status/auth-status.ts';
+import { cities } from '@/mocks/cities/cities.ts';
+import { changeCity } from '@/store/actions.ts';
+import { useAppDispatch } from '@/hooks/use-app-dispatch/use-app-dispatch.ts';
 
 const LoginPage = memo(() => {
   const navigate = useNavigate();
   const status = useAppSelector((state) => state.user.authorizationStatus);
+  const randomIndex = Math.floor(Math.random() * cities.length);
+  const randomCity = cities[randomIndex];
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (status === 'auth') {
+    if (status === AUTH_STATUS.Auth) {
       navigate(PATHS.Main);
     }
   }, [status, navigate]);
+
+  const handleClickOnCity = () => {
+    dispatch(changeCity(randomCity));
+  };
 
   return (
     <div className="page page--gray page--login">
@@ -26,9 +37,9 @@ const LoginPage = memo(() => {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+              <Link className="locations__item-link" onClick={handleClickOnCity} to={PATHS.Main}>
+                <span>{randomCity.name}</span>
+              </Link>
             </div>
           </section>
         </div>

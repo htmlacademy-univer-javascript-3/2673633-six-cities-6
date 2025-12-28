@@ -1,0 +1,16 @@
+export enum ACTION {
+  ChangeCity = 'changeCity',
+  LoadOffers = 'fillOffers',
+  ChangeOffersLoadingStatus = 'changeOffersLoadingStatus',
+  ChangeSorting = 'changeSorting',
+  LoadCurrentOffer = 'loadCurrentOffer',
+  ChangeCurrentOfferLoadingStatus = 'changeCurrentOfferLoadingStatus',
+  LoadReviews = 'loadReviews',
+  ChangeReviewsLoadingStatus = 'changeReviewsLoadingStatus',
+  LoadNearOffers = 'loadNearOffers',
+  ChangeNearOfferLoadingStatus = 'changeNearOfferLoadingStatus',
+  ChangeAuthorizationStatus = 'changeAuthorizationStatus',
+  SetEmail = 'setEmail',
+  SetAvatarUrl = 'setAvatarUrl',
+  LoadFavoriteOffers = 'loadFavoriteOffers',
+}

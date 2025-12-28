@@ -1,9 +1,10 @@
 import React, { useState, useCallback, useMemo, memo } from 'react';
 import { sendReview } from '@/store/api-actions.ts';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
-import { useAppSelector } from '@/hooks/use-app-selector.ts';
-import { RATINGS, REVIEW_MIN_LENGTH } from '@/constants/constants.ts';
+import { useAppDispatch } from '@/hooks/use-app-dispatch/use-app-dispatch.ts';
+import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
+import { RATINGS, REVIEW_MIN_LENGTH } from '@/constants/forms/forms.ts';
+import { AUTH_STATUS } from '@/constants/auth-status/auth-status.ts';
 
 const RatingOption = memo(({ value, id: reviewId, title, checked, onChange }: {
   value: string;
@@ -80,7 +81,7 @@ export default function ReviewForm() {
     [formState.rating, handleChange]
   );
 
-  if (authorizationStatus !== 'auth') {
+  if (authorizationStatus !== AUTH_STATUS.Auth) {
     return null;
   }
 

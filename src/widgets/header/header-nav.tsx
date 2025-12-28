@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '@/hooks/use-app-selector.ts';
-import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
+import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
+import { useAppDispatch } from '@/hooks/use-app-dispatch/use-app-dispatch.ts';
 import { logout } from '@/store/api-actions.ts';
 import React, { memo, useCallback } from 'react';
+import { PATHS } from '@/constants/paths/paths.ts';
+import { AUTH_STATUS } from '@/constants/auth-status/auth-status.ts';
 
 const HeaderNav = memo(() => {
   const status = useAppSelector((state) => state.user.authorizationStatus);
@@ -22,7 +24,7 @@ const HeaderNav = memo(() => {
   return (
     <nav className="header__nav">
       <ul className="header__nav-list">
-        {status === 'auth' ? (
+        {status === AUTH_STATUS.Auth ? (
           <>
             <li className="header__nav-item user">
               <Link
@@ -57,7 +59,7 @@ const HeaderNav = memo(() => {
           </>
         ) : (
           <li className="header__nav-item">
-            <Link className="header__nav-link" to="/login">
+            <Link className="header__nav-link" to={PATHS.Login}>
               <span className="header__signout">Sign in</span>
             </Link>
           </li>

@@ -1,12 +1,13 @@
-import { Offer } from '@/types/offer.ts';
+import { Offer } from '@/types/offer/offer.ts';
 import { Link, useNavigate } from 'react-router-dom';
 import { memo, useCallback, useMemo } from 'react';
 import { changeFavoriteStatus } from '@/store/api-actions.ts';
-import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
-import { useAppSelector } from '@/hooks/use-app-selector.ts';
-import { PATHS } from '@/constants/constants.ts';
-
-type CardType = 'cities' | 'favorites' | 'near-places';
+import { useAppDispatch } from '@/hooks/use-app-dispatch/use-app-dispatch.ts';
+import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
+import { PATHS } from '@/constants/paths/paths.ts';
+import { Card as CardType } from '@/types/card/card.ts';
+import { AUTH_STATUS } from '@/constants/auth-status/auth-status.ts';
+import { CARD } from '@/constants/card/card.ts';
 
 type CardProps = {
   offer: Offer;
@@ -17,11 +18,11 @@ type CardProps = {
 
 const getDimensions = (type: CardType) => {
   switch (type) {
-    case 'favorites':
+    case CARD.Favorites:
       return { width: 150, height: 110 };
-    case 'cities':
+    case CARD.Cities:
       return { width: 260, height: 200 };
-    case 'near-places':
+    case CARD.NearPlaces:
       return { width: 260, height: 200 };
     default:
       return { width: 260, height: 200 };
@@ -37,7 +38,7 @@ const Card = memo(({ offer, type, onMouseEnter, onMouseLeave }: CardProps) => {
   const navigate = useNavigate();
 
   const handleClickOnFavorite = useCallback(() => {
-    if (authorizationStatus === 'auth') {
+    if (authorizationStatus === AUTH_STATUS.Auth) {
       dispatch(changeFavoriteStatus({
         id: offer.id,
         status: isFavorite ? 0 : 1,

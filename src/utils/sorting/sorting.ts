@@ -1,5 +1,5 @@
-import { Offer } from '@/types/offer';
-import { SORTING_OPTIONS } from '@/constants/constants.ts';
+import { Offer } from '@/types/offer/offer.ts';
+import { SORTING_OPTIONS } from '@/constants/forms/forms.ts';
 
 const sortingFunctions = {
   [SORTING_OPTIONS.Popular]: (offers: Offer[]) => offers,

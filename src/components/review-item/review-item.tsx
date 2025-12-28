@@ -1,4 +1,4 @@
-import { Review } from '@/types/review.ts';
+import { Review } from '@/types/review/review.ts';
 import { useMemo, memo } from 'react';
 
 function formatDate(isoDate: string) {

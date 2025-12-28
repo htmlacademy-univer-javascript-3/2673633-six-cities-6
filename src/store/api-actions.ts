@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { AppDispatch, State } from '@/types/state.ts';
-import { Offer } from '@/types/offer.ts';
+import { AppDispatch, State } from '@/types/state/state';
+import { Offer } from '@/types/offer/offer';
 import {
   changeAuthorizationStatus,
   changeCurrentOfferLoadingStatus,
@@ -15,24 +15,33 @@ import {
   loadReviews,
   setAvatarUrl,
   setEmail,
-} from '@/store/actions.ts';
-import { ExpandedOffer } from '@/types/expanded-offer.ts';
-import { Review } from '@/types/review.ts';
-import { User } from '@/types/user.ts';
-import { removeToken, setToken } from '@/services/token.ts';
+} from '@/store/actions';
+import { ExpandedOffer } from '@/types/expanded-offer/expanded-offer';
+import { Review } from '@/types/review/review';
+import { User } from '@/types/user/user';
+import { removeToken, setToken } from '@/services/token/token';
+import { API_ACTION, TOAST_MESSAGES } from '@/constants/api-actions/api-actions';
+import { AUTH_STATUS } from '@/constants/auth-status/auth-status';
+import { API_ROUTE } from '@/constants/api/api';
+import { toast } from 'react-toastify';
+
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchOffers',
+  API_ACTION.FetchOffers,
   async (_arg, { dispatch, extra: api }) => {
+    dispatch(changeOffersLoadingStatus(true));
+
     try {
-      dispatch(changeOffersLoadingStatus(true));
-      const { data } = await api.get<Offer[]>('/offers');
+      const { data } = await toast.promise(
+        api.get<Offer[]>(API_ROUTE.Offers),
+        { error: TOAST_MESSAGES.FetchOffersError },
+      );
+
       dispatch(loadOffers(data));
-    } catch (error) { /* empty */
     } finally {
       dispatch(changeOffersLoadingStatus(false));
     }
@@ -44,33 +53,19 @@ export const fetchOffer = createAsyncThunk<void, string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchOffer',
+  API_ACTION.FetchOffer,
   async (id, { dispatch, extra: api }) => {
+    dispatch(changeCurrentOfferLoadingStatus(true));
+
     try {
-      dispatch(changeCurrentOfferLoadingStatus(true));
-      const { data } = await api.get<ExpandedOffer>(`/offers/${id}`);
+      const { data } = await toast.promise(
+        api.get<ExpandedOffer>(`${API_ROUTE.Offers}/${id}`),
+        { error: TOAST_MESSAGES.FetchOfferError },
+      );
+
       dispatch(loadCurrentOffer(data));
-    } catch (error) { /* empty */
     } finally {
       dispatch(changeCurrentOfferLoadingStatus(false));
-    }
-  },
-);
-
-export const fetchReviews = createAsyncThunk<void, string, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'fetchReviews',
-  async (id, { dispatch, extra: api }) => {
-    try {
-      dispatch(changeReviewsLoadingStatus(true));
-      const { data } = await api.get<Review[]>(`/comments/${id}`);
-      dispatch(loadReviews(data));
-    } catch (error) { /* empty */
-    } finally {
-      dispatch(changeReviewsLoadingStatus(false));
     }
   },
 );
@@ -80,82 +75,41 @@ export const fetchNearOffers = createAsyncThunk<void, string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchNearOffers',
+  API_ACTION.FetchNearOffers,
   async (id, { dispatch, extra: api }) => {
+    dispatch(changeNearOfferLoadingStatus(true));
+
     try {
-      dispatch(changeNearOfferLoadingStatus(true));
-      const { data } = await api.get<Offer[]>(`/offers/${id}/nearby`);
+      const { data } = await toast.promise(
+        api.get<Offer[]>(`${API_ROUTE.Offers}/${id}/nearby`),
+        { error: TOAST_MESSAGES.FetchNearOffersError },
+      );
+
       dispatch(loadNearOffers(data));
-    } catch (error) { /* empty */
     } finally {
       dispatch(changeNearOfferLoadingStatus(false));
     }
   },
 );
 
-export const login = createAsyncThunk<void, {
-  email: string;
-  password: string;
-}, {
+export const fetchReviews = createAsyncThunk<void, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'login',
-  async ({ email, password }, { dispatch, extra: api }) => {
-    try {
-      const { data } = await api.post<User>('/login', { email, password });
-      setToken(data.token);
-      dispatch(changeAuthorizationStatus('auth'));
-      dispatch(setEmail(data.email));
-      dispatch(setAvatarUrl(data.avatarUrl));
-    } catch (error) {
-      removeToken();
-      dispatch(changeAuthorizationStatus('no-auth'));
-      dispatch(setEmail(null));
-      dispatch(setAvatarUrl(null));
-    } finally { /* empty */
-    }
-  },
-);
+  API_ACTION.FetchReviews,
+  async (id, { dispatch, extra: api }) => {
+    dispatch(changeReviewsLoadingStatus(true));
 
-export const checkAuth = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'checkAuth',
-  async (_arg, { dispatch, extra: api }) => {
     try {
-      const { data } = await api.get<User>('/login');
-      dispatch(changeAuthorizationStatus('auth'));
-      dispatch(setEmail(data.email));
-      dispatch(setAvatarUrl(data.avatarUrl));
-    } catch (error) {
-      removeToken();
-      dispatch(setEmail(null));
-      dispatch(setAvatarUrl(null));
-      dispatch(changeAuthorizationStatus('no-auth'));
-    } finally { /* empty */
-    }
-  },
-);
+      const { data } = await toast.promise(
+        api.get<Review[]>(`${API_ROUTE.Reviews}/${id}`),
+        { error: TOAST_MESSAGES.FetchReviewsError },
+      );
 
-export const logout = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'logout',
-  async (_arg, { dispatch, extra: api }) => {
-    try {
-      await api.delete('/logout');
-      removeToken();
-      dispatch(changeAuthorizationStatus('no-auth'));
-      dispatch(setEmail(null));
-      dispatch(setAvatarUrl(null));
-    } catch (error) { /* empty */
-    } finally { /* empty */
+      dispatch(loadReviews(data));
+    } finally {
+      dispatch(changeReviewsLoadingStatus(false));
     }
   },
 );
@@ -169,10 +123,96 @@ export const sendReview = createAsyncThunk<void, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'sendReview',
+  API_ACTION.SendReview,
   async ({ id, comment, rating }, { dispatch, extra: api }) => {
-    await api.post<Review>(`/comments/${id}`, { comment, rating: Number(rating) });
+    await toast.promise(
+      api.post<Review>(`${API_ROUTE.Reviews}/${id}`, {
+        comment,
+        rating: Number(rating),
+      }),
+      {
+        success: TOAST_MESSAGES.SendReviewSuccess,
+        error: TOAST_MESSAGES.SendReviewError,
+      },
+    );
+
     dispatch(fetchReviews(id));
+  },
+);
+
+export const login = createAsyncThunk<void, {
+  email: string;
+  password: string;
+}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  API_ACTION.Login,
+  async ({ email, password }, { dispatch, extra: api }) => {
+    try {
+      const { data } = await toast.promise(
+        api.post<User>(API_ROUTE.Login, { email, password }),
+        {
+          success: TOAST_MESSAGES.LoginSuccess,
+          error: TOAST_MESSAGES.LoginError,
+        },
+      );
+
+      setToken(data.token);
+      dispatch(changeAuthorizationStatus(AUTH_STATUS.Auth));
+      dispatch(setEmail(data.email));
+      dispatch(setAvatarUrl(data.avatarUrl));
+    } catch {
+      removeToken();
+      dispatch(changeAuthorizationStatus(AUTH_STATUS.NoAuth));
+      dispatch(setEmail(null));
+      dispatch(setAvatarUrl(null));
+    }
+  },
+);
+
+export const checkAuth = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  API_ACTION.CheckAuth,
+  async (_arg, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.get<User>(API_ROUTE.Login);
+
+      dispatch(changeAuthorizationStatus(AUTH_STATUS.Auth));
+      dispatch(setEmail(data.email));
+      dispatch(setAvatarUrl(data.avatarUrl));
+    } catch {
+      removeToken();
+      dispatch(changeAuthorizationStatus(AUTH_STATUS.NoAuth));
+      dispatch(setEmail(null));
+      dispatch(setAvatarUrl(null));
+    }
+  },
+);
+
+export const logout = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  API_ACTION.Logout,
+  async (_arg, { dispatch, extra: api }) => {
+    await toast.promise(
+      api.delete(API_ROUTE.Login),
+      {
+        success: TOAST_MESSAGES.LogoutSuccess,
+        error: TOAST_MESSAGES.LogoutError,
+      },
+    );
+
+    removeToken();
+    dispatch(changeAuthorizationStatus(AUTH_STATUS.NoAuth));
+    dispatch(setEmail(null));
+    dispatch(setAvatarUrl(null));
   },
 );
 
@@ -181,14 +221,14 @@ export const fetchFavoriteOffers = createAsyncThunk<void, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'fetchFavoriteOffers',
+  API_ACTION.FetchFavoriteOffers,
   async (_arg, { dispatch, extra: api }) => {
-    try {
-      const { data } = await api.get<Offer[]>('/favorite');
-      dispatch(loadFavoriteOffers(data));
-    } catch (error) { /* empty */
-    } finally { /* empty */
-    }
+    const { data } = await toast.promise(
+      api.get<Offer[]>(API_ROUTE.Favorite),
+      { error: TOAST_MESSAGES.FetchFavoriteOffersError },
+    );
+
+    dispatch(loadFavoriteOffers(data));
   },
 );
 
@@ -200,14 +240,13 @@ export const changeFavoriteStatus = createAsyncThunk<void, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'changeFavoriteStatus',
+  API_ACTION.ChangeFavoriteStatus,
   async ({ id, status }, { dispatch, extra: api }) => {
-    try {
-      await api.post<Offer[]>(`/favorite/${id}/${status}`);
-      dispatch(fetchFavoriteOffers());
-    } catch (error) { /* empty */
-    } finally { /* empty */
-    }
+    await toast.promise(
+      api.post(`${API_ROUTE.Favorite}/${id}/${status}`),
+      { error: TOAST_MESSAGES.ChangeFavoriteStatusError },
+    );
+
+    dispatch(fetchFavoriteOffers());
   },
 );
-

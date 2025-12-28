@@ -4,10 +4,11 @@ import {
   changeReviewsLoadingStatus,
   loadCurrentOffer, loadNearOffers,
   loadReviews,
-} from '@/store/actions';
-import { ExpandedOffer } from '@/types/expanded-offer';
-import { Review } from '@/types/review.ts';
-import { Offer } from '@/types/offer.ts';
+} from '@/store/actions.ts';
+import { ExpandedOffer } from '@/types/expanded-offer/expanded-offer.ts';
+import { Review } from '@/types/review/review.ts';
+import { Offer } from '@/types/offer/offer.ts';
+import { SLICE } from '@/constants/store/store.ts';
 
 type CurrentOfferState = {
   currentOffer: ExpandedOffer | null;
@@ -28,7 +29,7 @@ const initialState: CurrentOfferState = {
 };
 
 export const currentOffer = createSlice({
-  name: 'currentOffer',
+  name: SLICE.CurrentOffer,
   initialState,
   reducers: {},
   extraReducers: (builder) =>
