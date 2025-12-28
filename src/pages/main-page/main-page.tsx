@@ -1,6 +1,6 @@
 import CitiesOffersList from '@/components/cities-offers-list/cities-offers-list.tsx';
 import Header from '@/widgets/header/header.tsx';
-import { useAppSelector } from '@/hooks/use-app-selector.ts';
+import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
 import CitiesTabs from '@/components/cities-tabs/cities-tabs.tsx';
 import Spinner from '@/components/spinner/spinner.tsx';
 import { memo, useMemo } from 'react';

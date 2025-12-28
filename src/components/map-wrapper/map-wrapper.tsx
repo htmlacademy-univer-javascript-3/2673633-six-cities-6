@@ -1,8 +1,8 @@
 import Map from '@/components/map/map.tsx';
-import { City } from '@/types/city.ts';
-import { Offer } from '@/types/offer.ts';
-import { Point } from '@/types/point.ts';
-import { ExpandedOffer } from '@/types/expanded-offer.ts';
+import { City } from '@/types/city/city.ts';
+import { Offer } from '@/types/offer/offer.ts';
+import { Point } from '@/types/point/point.ts';
+import { ExpandedOffer } from '@/types/expanded-offer/expanded-offer.ts';
 
 type MapWrapperProps = {
   type: 'offer' | 'cities';

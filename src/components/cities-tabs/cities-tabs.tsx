@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { changeCity } from '@/store/actions.ts';
-import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
-import { City } from '@/types/city.ts';
+import { useAppDispatch } from '@/hooks/use-app-dispatch/use-app-dispatch.ts';
+import { City } from '@/types/city/city.ts';
 
 type CitiesTabsProps = {
   cities: City[];

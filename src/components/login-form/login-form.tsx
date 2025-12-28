@@ -1,4 +1,4 @@
-import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
+import { useAppDispatch } from '@/hooks/use-app-dispatch/use-app-dispatch.ts';
 import React, { useState, useCallback, useMemo } from 'react';
 import { login } from '@/store/api-actions.ts';
 import { PASSWORD_REGEX } from '@/constants/constants.ts';

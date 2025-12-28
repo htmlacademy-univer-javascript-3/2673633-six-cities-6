@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import Spinner from '@/components/spinner/spinner.tsx';
-import { useAppSelector } from '@/hooks/use-app-selector.ts';
+import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
 
 type PrivateRouteProps = {
   children: React.ReactNode;

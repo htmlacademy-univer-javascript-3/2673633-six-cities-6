@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '@/hooks/use-app-selector.ts';
-import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
+import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
+import { useAppDispatch } from '@/hooks/use-app-dispatch/use-app-dispatch.ts';
 import { logout } from '@/store/api-actions.ts';
 import React, { memo, useCallback } from 'react';
 

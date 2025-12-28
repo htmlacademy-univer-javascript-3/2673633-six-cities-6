@@ -1,11 +1,11 @@
-import { Offer } from '@/types/offer.ts';
-import { City } from '@/types/city.ts';
+import { Offer } from '@/types/offer/offer.ts';
+import { City } from '@/types/city/city.ts';
 import { useState, useMemo, useCallback } from 'react';
 import Card from '@/components/card/card.tsx';
 import FilterForm from '@/components/filter-form/filter-form.tsx';
 import MapWrapper from '@/components/map-wrapper/map-wrapper.tsx';
-import { useAppSelector } from '@/hooks/use-app-selector.ts';
-import { sort } from '@/utils/sorting.ts';
+import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
+import { sort } from '@/utils/sorting/sorting.ts';
 
 type CitiesOffersListProps = {
   city: City;

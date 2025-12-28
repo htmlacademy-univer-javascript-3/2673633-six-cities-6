@@ -1,9 +1,9 @@
-import { Offer } from '@/types/offer.ts';
+import { Offer } from '@/types/offer/offer.ts';
 import { Link, useNavigate } from 'react-router-dom';
 import { memo, useCallback, useMemo } from 'react';
 import { changeFavoriteStatus } from '@/store/api-actions.ts';
-import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
-import { useAppSelector } from '@/hooks/use-app-selector.ts';
+import { useAppDispatch } from '@/hooks/use-app-dispatch/use-app-dispatch.ts';
+import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
 import { PATHS } from '@/constants/constants.ts';
 
 type CardType = 'cities' | 'favorites' | 'near-places';

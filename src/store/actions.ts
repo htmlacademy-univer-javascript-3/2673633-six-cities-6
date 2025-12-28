@@ -1,8 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
-import { City } from '@/types/city.ts';
-import { Offer } from '@/types/offer.ts';
-import { Review } from '@/types/review.ts';
-import { ExpandedOffer } from '@/types/expanded-offer.ts';
+import { City } from '@/types/city/city.ts';
+import { Offer } from '@/types/offer/offer.ts';
+import { Review } from '@/types/review/review.ts';
+import { ExpandedOffer } from '@/types/expanded-offer/expanded-offer.ts';
 import { SORTING_OPTIONS } from '@/constants/constants.ts';
 
 export const changeCity = createAction<City>('changeCity');

@@ -1,5 +1,5 @@
-import { useAppSelector } from '@/hooks/use-app-selector.ts';
-import { useAppDispatch } from '@/hooks/use-app-dispatch.ts';
+import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
+import { useAppDispatch } from '@/hooks/use-app-dispatch/use-app-dispatch.ts';
 import { changeSorting } from '@/store/actions.ts';
 import { memo, useCallback, useMemo, useState } from 'react';
 import { SORTING_OPTIONS } from '@/constants/constants.ts';

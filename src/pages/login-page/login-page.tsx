@@ -1,6 +1,6 @@
 import Header from '@/widgets/header/header.tsx';
 import LoginForm from '@/components/login-form/login-form.tsx';
-import { useAppSelector } from '@/hooks/use-app-selector.ts';
+import { useAppSelector } from '@/hooks/use-app-selector/use-app-selector.ts';
 import { useNavigate } from 'react-router-dom';
 import { memo, useEffect } from 'react';
 import { PATHS } from '@/constants/constants.ts';
