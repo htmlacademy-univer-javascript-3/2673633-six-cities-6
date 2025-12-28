@@ -35,7 +35,7 @@ export default function OfferPage() {
   const offer = useAppSelector((state) => state.currentOffer.currentOffer);
   const authorizationStatus = useAppSelector((state) => state.user.authorizationStatus);
   const reviews = useAppSelector((state) => state.currentOffer.reviews);
-  const nearOffers = useAppSelector((state) => state.currentOffer.nearOffers);
+  const nearOffers = useAppSelector((state) => state.currentOffer.nearOffers).slice(0, 3);
   const isCurrentOfferLoading = useAppSelector((state) => state.currentOffer.isCurrentOffersLoading);
   const isReviewsLoading = useAppSelector((state) => state.currentOffer.isReviewsLoading);
   const isNearOffersLoading = useAppSelector((state) => state.currentOffer.isNearOffersLoading);
@@ -193,7 +193,7 @@ export default function OfferPage() {
               {reviewsSection}
             </div>
           </div>
-          <MapWrapper type={MAP.Offer} city={offer.city} offers={[...nearOffers.slice(0, 3), offer]} selectedOffer={offer} />
+          <MapWrapper type={MAP.Offer} city={offer.city} offers={[...nearOffers, offer]} selectedOffer={offer} />
         </section>
         {nearOffersSection}
       </main>
